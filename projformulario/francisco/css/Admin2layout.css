@@ -1,0 +1,99 @@
+
+body{
+    margin: 0;
+    padding: 0;
+}
+/* Style for the main container */
+#container {
+    position: relative;
+}
+
+/* Styling for the white boxes */
+.white-box {
+    background: white;
+}
+
+/* Styling for the main content area */
+#main-content {
+    width: 1045px;
+    height: 779px;
+    left: 395px;
+    top: 174px;
+    position: absolute;
+    background: #F5F8FA;
+}
+
+/* Styling for the welcome message */
+#welcome-message {
+    left: 465px;
+    top: 232px;
+    position: absolute;
+    color: black;
+    font-size: 32px;
+    font-family: Inter;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* Styling for the recent forms */
+#recent-forms {
+    left: 465px;
+    top: 391px;
+    position: absolute;
+    color: black;
+    font-size: 32px;
+    font-family: Inter;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* Styling for the notification message */
+#notification {
+    left: 537px;
+    top: 812px;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* Styling for the form entries */
+.form-entry {
+    width: 885px;
+    height: 78px;
+    position: absolute;
+    background: #EDEDED;
+}
+
+/* Styling for the form titles */
+.form-title {
+    left: 497px;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* Styling for the form dates */
+.form-date {
+    left: 855px;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+/* Styling for the image */
+#form-image {
+    width: 38px;
+    height: 42px;
+    left: 469px;
+    top: 801px;
+    position: absolute;
+}
