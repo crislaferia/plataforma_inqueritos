@@ -1,8 +1,5 @@
-* {
-    
-  }
 
-  body {
+body {
     background-color: #2c2e3e;
     display: flex;
     flex-direction: column;
