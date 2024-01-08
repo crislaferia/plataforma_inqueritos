@@ -2,19 +2,13 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="respostas" content="Inqueritos a serem respondidos para estatística do CENCAL.">
-
   <title>Respostas</title>
-  <!--fav icon ainda não está funcionando-->
   <link rel="icon" type="image/x-icon" href="img/logocencalfav.ico">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <!--link fonte e iconlogin-->
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!--Estilização do retangulo principal que carrega as perguntas do drag and drop-->
-  
 </head>
 
 <body>
@@ -25,8 +19,8 @@
     </header>
     <section class="contentend">
       <div class="section">
-
-        <header class="mensagem-resposta">Com o objectivo de avaliar e analisar a utilidade e o impacto da acção de formação que
+        <header class="mensagem-resposta">Com o objectivo de avaliar e analisar a utilidade e o impacto da acção de
+          formação que
           frequentou no Cencal, agradecemos que preencha este inquérito, já que esta avaliação é fundamental para a
           eventual implementação de mudanças e processos de melhorias dos serviços prestados.
           Os dados recolhidos neste inquérito serão confidenciais.
@@ -36,14 +30,12 @@
         <h3>teste</h3>
       </div>
       <div class="container">
-        <!--criar a classe botões respostas -->
         <form class="botao-resposta" action="/login" method="post">
-            <input type="submit" value="Enviar respostas">
-
+          <input type="submit" value="Enviar respostas">
         </form>
-    </div>
-
+      </div>
     </section>
-
   </div>
 </body>
+
+</html>

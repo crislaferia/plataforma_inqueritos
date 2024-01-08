@@ -1,5 +1,5 @@
 
-    <div style="background-color:#2c2e3e; height: 120px">
+    <div style="background-color:#2c2e3e; height: 120px; width: 996px">
     
     <img src="https://cencal.pt/versions/v7.1.2.0/public/branding.501886354/logo.png?a=1698141962 " width=120 height=100> 
     
