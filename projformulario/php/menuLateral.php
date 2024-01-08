@@ -7,7 +7,7 @@
                 <div class="div-9">
                 <img
                     srcset="img/Vector.png"
-                /><a class="div-10" aria-current="page" href="html/codeverification.html">Inicio</a>
+                /><a class="div-10" aria-current="page" href="index.php">Inicio</a>
 
                 </div>
                 
@@ -22,8 +22,8 @@
                     <a class="div-12" href="#">Formulários</a>
                     <div class="dropdown-content" class="dropdown-menu">
                         <!-- Adicionar os itens do dropdown aqui -->
-                        <a class="dropdown-item active" href="/html/codeverification.html">Criar</a>
-                        <a class="dropdown-item" href="#">Consultar</a>
+                        <a class="dropdown-item active" href="index.php">Criar</a>
+                        <a class="dropdown-item" href="index.php">Consultar</a>
                         
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <img 
                     src="img/Frame.png"
                      />
-                <a class="div-14" href="/html/codeverification.html">Estatisticas</a>
+                <a class="div-14" href="index.php">Estatisticas</a>
             </div>
         </div>
         </ul>

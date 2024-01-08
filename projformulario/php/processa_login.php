@@ -22,6 +22,7 @@ else
     $nome = $row ['nome'];
     $msg = "Bem vindo $nome";
     echo "<script>alert('".$msg."');</script>";
+    // aqui vai o index do admin registado
     echo "<script>window.location.href='../index.php';</script>";
 }
 mysqli_close($liga);
