@@ -1,3 +1,6 @@
+CREATE SCHEMA IF NOT EXISTS `projeto_final_logins` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+use `projeto_final_logins`;
+
 create table if not exists tb_admins(
 cod_admin INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45) NOT NULL,
