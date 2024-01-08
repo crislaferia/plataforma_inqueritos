@@ -14,6 +14,7 @@ $resultado = mysqli_query($liga,$query);
 if (mysqli_num_rows($resultado)<=0)
 {
     echo "<script>alert('Dados de login inválidos');</script>";
+    echo "<script>window.location.href='loginadmin.php';</script>";
 }
 else
 {
