@@ -16,7 +16,7 @@
             class="img"
           />
             <div class="container">
-                <form class="login-form" action="/login" method="post">
+                <form class="login-form" action="processa_login.php" method="post">
                     <input type="text" name="username" placeholder="Username" required>
                     <input type="password" name="password" placeholder="Password" required>
                     <input type="submit" value="Login">

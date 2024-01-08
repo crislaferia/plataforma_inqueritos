@@ -3,7 +3,7 @@
 $servername ="localhost";
 $user ="root";
 $pass = "";
-$bd="login";
+$bd="projeto_final_logins";
 
 $liga = mysqli_connect($servername, $user, $pass, $bd);
 

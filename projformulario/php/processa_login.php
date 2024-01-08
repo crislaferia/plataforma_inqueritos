@@ -7,7 +7,7 @@ $password = $_POST['password'];
 
 include 'ligaBD.php';
 
-$query = "SELECT * FROM login WHERE email='".$email."' and password='".$password."'";
+$query = "SELECT * FROM tb_admins WHERE email='".$email."' and password='".$password."'";
 
 $resultado = mysqli_query($liga,$query);
 
@@ -19,10 +19,9 @@ else
 {
     $row = mysqli_fetch_assoc($resultado);
     $nome = $row ['nome'];
-    $apelido = $row ['apelido'];
-    $msg = "Bem vindo $nome $apelido";
+    $msg = "Bem vindo $nome";
     echo "<script>alert('".$msg."');</script>";
-    echo "<script>window.location.href='../index.html';</script>";
+    echo "<script>window.location.href='../index.php';</script>";
 }
 mysqli_close($liga);
 
