@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="../css/Admin2layout.css">
 </head>
 <body>
-    <div class="background-box-fr">
+    <div class="sectionhome">
         <div class="white-box"></div>
         
         <div class="menu-item inicio">Inicio</div>

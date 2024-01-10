@@ -22,8 +22,8 @@
                     <a class="div-12" href="#">Formulários</a>
                     <div class="dropdown-content" class="dropdown-menu">
                         <!-- Adicionar os itens do dropdown aqui -->
-                        <a class="dropdown-item active" href="index.php">Criar</a>
-                        <a class="dropdown-item" href="index.php">Consultar</a>
+                        <a class="dropdown-item active" href="#">Criar</a>
+                        <a class="dropdown-item" href="#">Consultar</a>
                         
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <img 
                     src="img/Frame.png"
                      />
-                <a class="div-14" href="index.php">Estatisticas</a>
+                <a class="div-14" href="teste2.php">Estatisticas</a>
             </div>
         </div>
         </ul>

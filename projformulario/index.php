@@ -11,20 +11,26 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </head>
 <body>
-    <header>
+    <header style="
+    margin-top: 50px;
+">
         <div id="cabecalho">
             <?php include "php/cabecalho.php"; ?>
             
         </div>
-        <div id="menuLateral">
+
+        
+
+    </header>
+
+    <div class="corpoCentral">
+    <div id="menuLateral">
             <?php include "php/menuLateral.php"; ?>
         </div>
         <div id="home">
             <?php include "php/home.php"; ?>
         </div>
-
-    </header>
-    
+    </div>
     
     
 

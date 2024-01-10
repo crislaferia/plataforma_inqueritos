@@ -16,7 +16,7 @@
             class="img"
           />
             <div class="container">
-                <form class="login-form" action="/login" method="post">
+                <form class="login-form" action="/projformulario/php/codeverification.php" method="post">
                     <input type="text" name="username" placeholder="Digite o seu E-mail" required>
                     <input type="submit" value="Continuar">
                     <a href="#" class="access">Não consegue aceder? Clique aqui.</a>

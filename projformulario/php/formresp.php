@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="../css/style.css" />
-    <title>Responder</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pagina apos responder a inqueritos.">
+  <title>Formulários</title>
+  <link rel="icon" type="image/x-icon" href="img/logocencalfav.ico">
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header class="container">
-        <img
+    <div class="div">
+        <div class="div-2">
+          <img
             loading="lazy"
             srcset="https://cencal.pt/versions/v7.1.2.0/public/branding.501886354/logo.png?a=1698141962"
-            class="logo"
-        />
-    </header>
+            class="img"
+          />
+
     <section class="contentend">
         <div class="section">
-            <header class="title">aqui vão as questões</header>
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/f284db328070a13755c0bec0a003968fb88ed31bc5064ca306a3bab76fb40bb8?apiKey=f707913968e64dada259d321cef35518&" class="section-img" />
+            <header class="title">Os formularios podem ser colocadas aqui!</header>
         </div>
+        </div>
+        </div>
+
     </section>
 </body>
 </html>
