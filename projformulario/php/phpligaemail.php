@@ -4,6 +4,7 @@ include 'PHPMailer.php';
 include 'Exception.php';
 include 'SMTP.php';
 include 'testeenviolink.php';
+include 'gerallink.js';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -32,8 +33,9 @@ function enviarEmails($listaEmails) {
         $mail->addAddress(trim($email));
 
         // Configuração do corpo do e-mail, assunto, etc.
-        $mail->Subject = 'Assunto do E-mail';
+        $mail->Subject = 'Link para preenchimento inquerito';
         $mail->Body = "Bem vindo ao Cencal, clique no link abaixo para aceder o formulário:";
+        //Aqui vai o link que vem do gerallink.js chamado link completo
 
         // Enviar o e-mail
         if ($mail->send()) {
@@ -53,9 +55,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Exemplo de chamada da função com o email inputado pelo usuário
     enviarEmails($emailInputado);
 }
-
-// Exemplo de chamada da função
-//$listaEmails = 'felipemoraes_amb@hotmail.com';
-//enviarEmails($listaEmails);
 
 ?>

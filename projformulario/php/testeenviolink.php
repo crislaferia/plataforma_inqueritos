@@ -10,6 +10,7 @@
         <label for="email">Email:</label>
         <input type="email" name="email" required>
         <button type="submit">Enviar</button>
+        
     </form>
 </body>
 </html>

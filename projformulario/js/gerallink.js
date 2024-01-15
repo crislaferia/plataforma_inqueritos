@@ -12,6 +12,6 @@ function gerarLinkAleatorio(tamanho) {
   // Usando a função para gerar um link aleatório de 8 caracteres
   const linkAleatorio = gerarLinkAleatorio(8);
  
-  const linkCompleto = "http://localhost/projformulario/php/pagina_respostas.php/"+linkAleatorio;
+  const linkCompleto = "http://localhost/plataforma_inqueritos/projformulario/php/pagina_respostas.php"+linkAleatorio;
   console.log(linkCompleto);
 
