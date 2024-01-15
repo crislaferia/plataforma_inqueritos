@@ -1,44 +1,22 @@
 
-<div class="div-5">
-    <div class="div-6">
-    <div class="column">
-        <div class="div-7">
-            <div class="div-8">
-                <div class="div-9">
-                <img
-                    srcset="img/Vector.png"
-                /><a class="div-10" aria-current="page" href="index.php">Inicio</a>
-
+            <div class="menu">
+                <div class="menu-item">
+                    <img src="img/Vector.png">
+                    <a href="index.php" class="menu-link" aria-current="page">Inicio</a>
                 </div>
-                
-                
-            </div>
-            <div class="div-11">
-                <img 
-                    src="img/Vector2.png"
-                     />
-
-                <div class="dropdown" data-bs-toggle="dropdown">
-                    <a class="div-12" href="#">Formulários</a>
-                    <div class="dropdown-content" class="dropdown-menu">
-                        <!-- Adicionar os itens do dropdown aqui -->
-                        <a class="dropdown-item active" href="#">Criar</a>
-                        <a class="dropdown-item" href="#">Consultar</a>
-                        
+                <div class="menu-item">
+                    <img src="img/Vector2.png">
+                    <div class="dropdown">
+                        <a href="#" class="menu-link">Formulários</a>
+                        <div class="dropdown-content">
+                            <a href="criar_form.php" class="dropdown-item">Criar</a>
+                            <a href="cons_form.php" class="dropdown-item">Consultar</a>
+                        </div>
                     </div>
                 </div>
+                <div class="menu-item">
+                    <img src="img/Frame.png">
+                    <a href="estatisticas.php" class="menu-link">Estatisticas</a>
+                </div>
             </div>
-            
-            <div class="div-13">
-                <img 
-                    src="img/Frame.png"
-                     />
-                <a class="div-14" href="teste2.php">Estatisticas</a>
-            </div>
-        </div>
-        </ul>
-    </div>
-
-    </div>
-    </div>
-    </div>
+        

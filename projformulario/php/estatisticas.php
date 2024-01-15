@@ -1,6 +1,5 @@
 <div class="white-box"></div>
-<h1>INICIO</h1>
-
+<h1>Estatisticas</h1>
             <div class="menu-item inicio">Inicio</div>
             <div class="menu-item formularios">Formulários</div>
             <div class="menu-item estatisticas">Estatisticas</div>
