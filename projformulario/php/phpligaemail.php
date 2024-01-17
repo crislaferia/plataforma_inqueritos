@@ -1,21 +1,42 @@
 <?php
+session_start();
 
 include 'PHPMailer.php';
 include 'Exception.php';
 include 'SMTP.php';
 include 'testeenviolink.php';
-include 'gerallink.js';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// Função para enviar e-mails
-function enviarEmails($listaEmails) {
-    // Criar uma instância do PHPMailer
-    $mail = new PHPMailer (true);
+// Inicializar a variável $linkCompleto dentro do bloco POST
+function gerarLinkAleatorio($tamanho) {
+    $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    $link = '';
+    for ($i = 0; $i < $tamanho; $i++) {
+        $indice = mt_rand(0, strlen($caracteres) - 1);
+        $link .= $caracteres[$indice];
+    }
+    return $link;
+}
 
-    // Configurar as informações do servidor de e-mail
+// Usando a função para gerar um link aleatório de 8 caracteres
+$linkAleatorio = gerarLinkAleatorio(8);
+$mais = "?=";
+$linkCompleto = "http://localhost/plataforma_inqueritos/projformulario/php/pagina_respostas.php" . $mais . $linkAleatorio;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $emailInputado = isset($_POST['email']) ? $_POST['email'] : '';
+    $linkCompleto = isset($_SESSION['link']) ? $_SESSION['link'] : '';
+
+    echo 'Link Recebido: ' . htmlspecialchars($linkCompleto);
+    enviarEmails($emailInputado, $linkCompleto);
+}
+
+function enviarEmails($listaEmails, $linkCompleto) {
+    $mail = new PHPMailer(true);
+
     $mail->isSMTP();
     $mail->Host = 'mail.cencal.pt';
     $mail->SMTPAuth = true;
@@ -24,36 +45,27 @@ function enviarEmails($listaEmails) {
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
 
-    // Configurar o remetente
     $mail->setFrom('platinq@cencal.pt', 'Plataforma de Inquéritos');
 
-    // Loop para enviar e-mails para cada endereço
     $emails = explode(',', $listaEmails);
     foreach ($emails as $email) {
-        $mail->addAddress(trim($email));
+        try {
+            $mail->addAddress(trim($email));
 
-        // Configuração do corpo do e-mail, assunto, etc.
-        $mail->Subject = 'Link para preenchimento inquerito';
-        $mail->Body = "Bem vindo ao Cencal, clique no link abaixo para aceder o formulário:";
-        //Aqui vai o link que vem do gerallink.js chamado link completo
+            $mail->Subject = 'Link para preenchimento inquerito';
+            $mail->Body = "Bem-vindo ao Cencal, clique no link abaixo para aceder o formulário: " . htmlspecialchars($linkCompleto);
 
-        // Enviar o e-mail
-        if ($mail->send()) {
-            echo 'E-mail enviado com sucesso para ' . $email . '<br>';
-        } else {
-            echo 'Erro ao enviar o e-mail para ' . $email . ': ' . $mail->ErrorInfo . '<br>';
+            if ($mail->send()) {
+                echo 'E-mail enviado com sucesso para ' . $email . '<br>';
+            } else {
+                throw new Exception('Erro ao enviar o e-mail: ' . $mail->ErrorInfo);
+            }
+        } catch (Exception $e) {
+            echo 'Erro: ' . $e->getMessage() . '<br>';
+        } finally {
+            // Limpar os destinatários para o próximo e-mail
+            $mail->clearAddresses();
         }
-
-        // Limpar os destinatários para o próximo e-mail
-        $mail->clearAddresses();
     }
 }
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $emailInputado = $_POST['email'];
-
-    // Exemplo de chamada da função com o email inputado pelo usuário
-    enviarEmails($emailInputado);
-}
-
 ?>
