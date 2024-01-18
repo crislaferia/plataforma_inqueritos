@@ -4,7 +4,8 @@ session_start();
 include 'PHPMailer.php';
 include 'Exception.php';
 include 'SMTP.php';
-include 'testeenviolink.php';
+//include 'testeenviolink.php';
+//include 'testefd.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -27,7 +28,7 @@ $mais = "?=";
 $linkCompleto = "http://localhost/plataforma_inqueritos/projformulario/php/pagina_respostas.php" . $mais . $linkAleatorio;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $emailInputado = isset($_POST['email']) ? $_POST['email'] : '';
+    $emailInputado = isset($_POST['emails']) ? $_POST['emails'] : '';
     $linkCompleto = isset($_SESSION['link']) ? $_SESSION['link'] : '';
 
     echo 'Link Recebido: ' . htmlspecialchars($linkCompleto);
@@ -47,21 +48,21 @@ function enviarEmails($listaEmails, $linkCompleto) {
 
     $mail->setFrom('platinq@cencal.pt', 'Plataforma de Inquéritos');
 
-    $emails = explode(',', $listaEmails);
-    foreach ($emails as $email) {
+    $emailes = explode(',', $listaEmails);
+    foreach ($emailes as $emails) {
         try {
-            $mail->addAddress(trim($email));
+            $mail->addAddress(trim($emails));
 
             $mail->Subject = 'Link para preenchimento inquerito';
             $mail->Body = "Bem-vindo ao Cencal, clique no link abaixo para aceder o formulário: " . htmlspecialchars($linkCompleto);
 
             if ($mail->send()) {
-                echo 'E-mail enviado com sucesso para ' . $email . '<br>';
+                echo 'E-mail enviado com sucesso para ' . $emails ;
             } else {
                 throw new Exception('Erro ao enviar o e-mail: ' . $mail->ErrorInfo);
             }
         } catch (Exception $e) {
-            echo 'Erro: ' . $e->getMessage() . '<br>';
+            echo 'Erro: ' . $e->getMessage() ;
         } finally {
             // Limpar os destinatários para o próximo e-mail
             $mail->clearAddresses();
