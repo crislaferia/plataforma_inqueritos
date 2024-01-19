@@ -12,6 +12,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            
         }
 
         #container {
@@ -70,21 +71,35 @@
         const modalContent = document.getElementById("modalContent");
 
         function adicionarEmail() {
-            const valor = emailInput.value.trim();
-            if (valor !== "") {
-                const novoEmail = document.createElement("span");
-                novoEmail.textContent = valor;
-                novoEmail.setAttribute("contentEditable", "true");
+    const valor = emailInput.value.trim();
+    
+    // Verificar se o valor inserido corresponde a um email válido
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-                emailsContainer.appendChild(novoEmail);
+    // Verificar se o valor inserido é uma lista de emails válidos separados por vírgula, espaço ou ponto e vírgula
+    const emails = valor.split(/[,\s;]/);
+    const emailsValidos = emails.filter(email => emailRegex.test(email.trim()));
 
-                if (emailsContainer.textContent !== "") {
-                    emailsContainer.innerHTML += "; ";
-                }
+    if (emailsValidos.length === 0) {
+        alert("Por favor, insira pelo menos um email válido.");
+        return;
+    }
 
-                emailInput.value = "";
-            }
+    emailsValidos.forEach(email => {
+        const novoEmail = document.createElement("span");
+        novoEmail.textContent = email.trim();
+        novoEmail.setAttribute("contentEditable", "true");
+
+        emailsContainer.appendChild(novoEmail);
+
+        if (emailsContainer.textContent !== "") {
+            emailsContainer.innerHTML += "; ";
         }
+    });
+
+    emailInput.value = "";
+}
+
 
         emailForm.addEventListener("submit", function(event) {
             event.preventDefault();
@@ -129,21 +144,20 @@
         };
 
         function limparFormulario() {
-            // Remover os elementos span do emailsContainer
-            const spans = emailsContainer.querySelectorAll('span');
-            spans.forEach(span => {
-                emailsContainer.removeChild(span);
-            });
+    // Remover todos os elementos do emailsContainer
+    emailsContainer.innerHTML = "";
 
-            // Remover o ponto e vírgula (;) do emailsContainer, se existir
-            const content = emailsContainer.textContent.trim();
-            if (content.endsWith(";")) {
-                emailsContainer.textContent = content.slice(0, -1);
-            }
+    // Limpar o valor do emailInput
+    emailInput.value = "";
+}
+emailInput.addEventListener("keydown", function(event) {
+    // Verificar se a tecla pressionada é ; (ponto e vírgula), , (vírgula) ou espaço
+    if (event.key === ';' || event.key === ',' || event.key === ' ') {
+        adicionarEmail(); // Chamar a função adicionarEmail
+        event.preventDefault(); // Evitar que o caractere seja inserido no campo de entrada
+    }
+});
 
-            // Limpar o valor do emailInput
-            emailInput.value = "";
-        }
     </script>
 
 </body>

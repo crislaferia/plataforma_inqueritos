@@ -20,9 +20,9 @@
         </select>
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Opções</button>
         <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#" onclick="openPopup3('php/enviodemail.php')">Editar</a></li>
+            <li><a class="dropdown-item" href="#" onclick="link2">Editar</a></li>
             <li><a class="dropdown-item" href="#" onclick="openPopup('php/enviodemail.php')">Enviar</a></li>
-            <li><a class="dropdown-item" href="#" onclick="openPopup2('aqui vai o link gerado')">Gerar Link</a></li>
+            <li><a class="dropdown-item" href="#" onclick="openPopup2('rececber o link gerado')">Gerar Link</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Eliminar</a></li>
         </ul>
@@ -41,32 +41,5 @@
         confirmButtonText: 'OK'
     });
 }
-function openPopup3(url) {
-    // Faz uma requisição AJAX para obter o conteúdo da página HTML
-    $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'html',
-        success: function (data) {
-            // Exibe o conteúdo da página HTML dentro do modal
-            Swal.fire({
-                title: 'Popup Title',
-                html: data,
-                icon: 'info',
-                confirmButtonText: 'OK'
-            });
-        },
-        error: function () {
-            // Em caso de erro ao carregar a página
-            Swal.fire({
-                title: 'Erro',
-                text: 'Não foi possível carregar o conteúdo da página.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
-    });
-}
-
-
+    
 </script>
