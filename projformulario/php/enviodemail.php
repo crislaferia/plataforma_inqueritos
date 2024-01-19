@@ -6,7 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Input Form</title>
     <style>
-        
+      body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #container {
+            width: 80%; /* Ajuste conforme necessário */
+            max-width: 600px; /* Define uma largura máxima para o conteúdo */
+            background-color: #f9f9f9; /* Cor de fundo opcional */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+        }
+
         /* Adicionando estilos básicos para o modal */
         #myModal {
             display: none;
@@ -28,7 +44,8 @@
     </style>
 </head>
 <body>
-
+    <div id="container">
+<div class="janelaenvio">
     <h2>Envio de Email Pré Defenido</h2>
 
     <form id="emailForm" action="phpligaemail.php" method="post">
@@ -42,6 +59,8 @@
     <div id="myModal">
         <div id="modalContent"></div>
     </div>
+</div>
+</div>
 
     <script>
         const emailInput = document.getElementById("emailInput");
