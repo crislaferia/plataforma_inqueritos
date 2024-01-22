@@ -1,3 +1,8 @@
+<?php 
+
+$linkCompleto = isset($_SESSION['link']) ? $_SESSION['link'] : '';
+?>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -22,12 +27,15 @@
         <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="#" onclick="link2">Editar</a></li>
             <li><a class="dropdown-item" href="#" onclick="openPopup('php/enviodemail.php')">Enviar</a></li>
-            <li><a class="dropdown-item" href="#" onclick="openPopup2('rececber o link gerado')">Gerar Link</a></li>
+            <li><a class="dropdown-item" href="#" onclick="openPopup2('<?php echo $linkCompleto; ?>')">Gerar Link</a></li>
+
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Eliminar</a></li>
         </ul>
     </div>
 </p>
+
+
 
 <script>
     function openPopup(url) {
