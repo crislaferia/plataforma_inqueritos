@@ -56,17 +56,18 @@
         <form class="botao-resposta" action="obrigado.php" method="post">
             <?php
             // Connect to MongoDB
-            require_once __DIR__ . '/vendor/autoload.php';
-            $client = new MongoDB\Client("mongodb://localhost:27017");
+            require 'vendor/autoload.php';
+            $client = new MongoDB\Client('mongodb://localhost');
+
 
             // Select the database and collection
-            $databaseName = 'plataformaInqueritos';
+            $databaseName = 'plataformaiInqueritos';
             $collectionName = 'questionarios';
             $collection = $client->$databaseName->$collectionName;
 
             // Display the questionnaire
-            $perguntas = $collection->findOne();
-            foreach ($perguntas->perguntas as $pergunta) {
+            $QuestionarioFormacoesOnline = $collection->findOne();
+            foreach ($QuestionarioFormacoesOnline->QuestionarioFormacoesOnline as $pergunta) {
                 echo '<div class="pergunta">';
                 echo '<p>' . $pergunta->categoria . ': ' . $pergunta->pergunta . '</p>';
 
