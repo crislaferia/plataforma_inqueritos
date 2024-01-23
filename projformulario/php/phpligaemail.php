@@ -4,8 +4,8 @@ session_start();
 include 'PHPMailer.php';
 include 'Exception.php';
 include 'SMTP.php';
-//include 'testeenviolink.php';
-//include 'testefd.php';
+
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;

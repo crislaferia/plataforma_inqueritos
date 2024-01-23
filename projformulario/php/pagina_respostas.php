@@ -66,8 +66,8 @@
             $collection = $client->$databaseName->$collectionName;
 
             // Display the questionnaire
-            $QuestionarioFormacoesOnline = $collection->findOne();
-            foreach ($QuestionarioFormacoesOnline->QuestionarioFormacoesOnline as $pergunta) {
+            $perguntas = $collection->findOne();
+            foreach ($perguntas->perguntas as $pergunta) {
                 echo '<div class="pergunta">';
                 echo '<p>' . $pergunta->categoria . ': ' . $pergunta->pergunta . '</p>';
 
