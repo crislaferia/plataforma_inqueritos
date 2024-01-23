@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'poppins';
+  font-size: 30px;
+}
+
+.kanban {
+  display: flex;
+  justify-content: center;
+  min-height: 400px;
+  gap: 10px;
+  padding: 10px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background-color: #4A495A;
+  min-width: 200px;
+  border-radius: 5px;
+}
+
+.item {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.dragging {
+  opacity: 0.5;
+}
+
+
+.simple-question-group, .evaluation-group, .radio-group, .observations-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background-color: #F5F8FA; /* Ou a cor desejada */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: relative; /* Adicione se necessário */
+  z-index: 1000; /* Adicione se necessário */
+}
+
+/* Estilos específicos para os inputs dentro de .simple-question-group */
+.simple-question-group, .evaluation-group, .radio-group, .observations-group input {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/*ESTILOS TEXTO */
+
+.question-input {
+  margin-bottom: 10px; /* Adapte conforme necessário */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: black;
+}
+
+/* BOTÕES JAVASCRIPT */
+
+.action-button {
+  width: 19%; /* Defina a largura desejada para os botões */
+  margin-right: 4%; /* Adicione um espaçamento entre os botões, se necessário */
+  padding: 10px;
+  background-color: #4A495A;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+/* Limpa a margem do último botão para evitar quebrar para a próxima linha */
+.action-button:last-child {
+  margin-right: 0;
+}
+
+
