@@ -36,7 +36,7 @@ if (!isset($_SESSION['username'])) {
         </nav>
 
         <section class="sectionhome">
-        <?php include ('php/criar.php'); ?>
+        <?php include ('php/criarformulario.php'); ?>
         </section>
     </div>
 

@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const { MongoClient } = require('mongodb');
   // ... (restante do código)
 
-  const uri = 'mongodb://localhost:27017/db_formulario'; // Substitua com o URI de conexão ao seu MongoDB
+  const uri = 'mongodb://localhost:27017/plataformaiInqueritos'; // Substitua com o URI de conexão ao seu MongoDB
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
   // Função para conectar ao MongoDB
@@ -552,12 +552,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Função para inserir documento no MongoDB
-  async function inserirDocumento(colecao, documento) {
+  async function inserirDocumento(teste, meuDocumento) {
     const db = client.db();
-    const collection = db.collection(colecao);
+    const collection = db.collection(teste);
 
     try {
-      const resultado = await collection.insertOne(documento);
+      const resultado = await collection.insertOne(meuDocumento);
       console.log('Documento inserido:', resultado.insertedId);
     } catch (erro) {
       console.error('Erro ao inserir documento:', erro);
@@ -565,9 +565,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Função para consultar documentos no MongoDB
-  async function consultarDocumentos(colecao) {
+  async function consultarDocumentos(teste) {
     const db = client.db();
-    const collection = db.collection(colecao);
+    const collection = db.collection(teste);
 
     try {
       const documentos = await collection.find().toArray();
