@@ -8,7 +8,6 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,11 +31,12 @@ if (!isset($_SESSION['username'])) {
 
     <div style="display: flex;">
         <nav class="nav">
-            <?php include ('php/menuLateral.php'); ?>
+
+        <?php include ('php/menuLateral.php'); ?>
         </nav>
 
         <section class="sectionhome">
-            <?php include ('php/home.php'); ?>
+        <?php include ('php/criar.php'); ?>
         </section>
     </div>
 
