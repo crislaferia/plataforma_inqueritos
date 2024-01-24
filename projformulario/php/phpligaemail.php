@@ -4,14 +4,11 @@ session_start();
 include 'PHPMailer.php';
 include 'Exception.php';
 include 'SMTP.php';
-
-
+include 'phpMailerConfiguration.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// Inicializar a variável $linkCompleto dentro do bloco POST
 function gerarLinkAleatorio($tamanho) {
   $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   $link = '';
@@ -22,59 +19,62 @@ function gerarLinkAleatorio($tamanho) {
   return $link;
 }
 
-// Usando a função para gerar um link aleatório de 8 caracteres
-$linkAleatorio = gerarLinkAleatorio(8);
-$mais = "?=";
-$linkCompleto = "http://localhost/plataforma_inqueritos/projformulario/php/pagina_respostas.php" . $mais . $linkAleatorio;
+function obterLinkCompleto() {
+  $linkAleatorio = gerarLinkAleatorio(8);
+  $mais = "?=";
+  return "http://localhost/plataforma_inqueritos/projformulario/php/pagina_respostas.php" . $mais . $linkAleatorio;
+}
 
-// Armazenar $linkCompleto na sessão
+function enviarEmails($listaEmails, $linkCompleto, $config) {
+  $mail = new PHPMailer(true);
+
+  $mail->isSMTP();
+  $mail->Host = $config['smtp_host'];
+  $mail->SMTPAuth = true;
+  $mail->Username = $config['smtp_username'];
+  $mail->Password = $config['smtp_password'];
+  $mail->SMTPSecure = $config['smtp_secure'];
+  $mail->Port = $config['smtp_port'];
+
+  $mail->setFrom($config['from_email'], $config['from_name']);
+
+  $emailes = explode(',', $listaEmails);
+  $emailsEnviados = [];
+
+  foreach ($emailes as $emails) {
+    $email = trim($emails);
+
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      try {
+        $mail->addAddress($email);
+
+        $mail->Subject = $config['email_subject'];
+        $mail->isHTML(true);
+        $mail->Body = sprintf($config['email_body'], $linkCompleto, $linkCompleto);
+
+        if ($mail->send()) {
+          $emailsEnviados[] = $email;
+        } else {
+          throw new Exception('Erro ao enviar o e-mail: ' . $mail->ErrorInfo);
+        }
+      } catch (Exception $e) {
+        echo 'Erro: ' . $e->getMessage();
+      } finally {
+        $mail->clearAddresses();
+      }
+    } else {
+      echo 'E-mail inválido: ' . htmlspecialchars($email) . '<br>';
+    }
+  }
+  echo 'Emails enviados com sucesso!';
+}
+
+$linkCompleto = obterLinkCompleto();
 $_SESSION['link'] = $linkCompleto;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $emailInputado = isset($_POST['emails']) ? $_POST['emails'] : '';
   $linkCompleto = isset($_SESSION['link']) ? $_SESSION['link'] : '';
-
-  //echo 'Link Recebido: ' . htmlspecialchars($linkCompleto);
-  enviarEmails($emailInputado, $linkCompleto);
+  enviarEmails($emailInputado, $linkCompleto, $config);
 }
-
-function enviarEmails($listaEmails, $linkCompleto) {
-  $mail = new PHPMailer(true);
-
-  $mail->isSMTP();
-  $mail->Host = 'mail.cencal.pt';
-  $mail->SMTPAuth = true;
-  $mail->Username = 'platinq@cencal.pt';
-  $mail->Password = 'C6aJEFdI(=1k';
-  $mail->SMTPSecure = 'tls';
-  $mail->Port = 587;
-
-  $mail->setFrom('platinq@cencal.pt', 'Plataforma de Inquéritos');
-
-  $emailes = explode(',', $listaEmails);
-  $emailsEnviados = [];
-  foreach ($emailes as $emails) {
-    try {
-      $mail->addAddress(trim($emails));
-
-      $mail->Subject = 'Link para preenchimento inquerito';
-      $mail->isHTML(true);
-      // Remova htmlspecialchars do $linkCompleto
-      $mail->Body = "Bem-vindo ao Cencal, clique no link abaixo para aceder o formulário: <a href='$linkCompleto'>$linkCompleto</a>";
-
-      if ($mail->send()) {
-        $emailsEnviados[] = $emails;
-      } else {
-        throw new Exception('Erro ao enviar o e-mail: ' . $mail->ErrorInfo);
-      }
-    } catch (Exception $e) {
-      echo 'Erro: ' . $e->getMessage();
-    } finally {
-      // Limpar os destinatários para o próximo e-mail
-      $mail->clearAddresses();
-    }
-  }
-
-  // Print da lista de emails inseridos
-  echo 'Emails enviados: ' . implode(', ', $emailsEnviados);
-}
+?>
