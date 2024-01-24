@@ -37,11 +37,18 @@
             align-items: center;
         }
 
+        .emailsContainerSt {
+            margin-top: 15px; 
+            margin-bottom: 15px;
+        }
+
         #modalContent {
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
+            max-width: 187px;
         }
+
     </style>
 </head>
 <body>
@@ -52,7 +59,7 @@
     <form id="emailForm" action="phpligaemail.php" method="post">
         <input type="email" id="emailInput" name="emails" placeholder="Insira os e-mails">
         <button type="button" onclick="adicionarEmail()">Adicionar</button>
-        <div type="email" id="emailsContainer" name="email"></div>
+        <div class="emailsContainerSt" type="email" id="emailsContainer" name="email"></div>
         <button type="submit">Enviar</button>
         <button type="button" onclick="limparFormulario()">Limpar</button>
     </form>
@@ -92,7 +99,7 @@
 
         emailsContainer.appendChild(novoEmail);
 
-        if (emailsContainer.textContent !== "") {
+        if (emailsContainer.textContent !== " ") {
             emailsContainer.innerHTML += "; ";
         }
     });
