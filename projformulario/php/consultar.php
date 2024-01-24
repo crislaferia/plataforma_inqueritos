@@ -13,10 +13,13 @@ $options = " ";
 if ($resultado) {
     foreach ($resultado as $documento) {
         // Verificar se as chaves existem antes de acessá-las
-        $valor = isset($documento['valor']) ? $documento['valor'] : '';
+        $id = isset($documento['_id']) ? $documento['_id'] : '';
         $descricao = isset($documento['descricao']) ? $documento['descricao'] : '';
 
-        $options .= "<option value='" . $valor . "'>" . $descricao . "</option>";
+        // Converter o _id para uma string
+    $idString = (string) $id;
+
+        $options .= "<option value='" . $idString . "'>" . $descricao . "</option>";
     }
 }
 
@@ -100,7 +103,7 @@ function eliminarOpcao() {
             $.ajax({
     type: "POST",
     url: "/projformulario/php/remover_opcao.php",
-    data: { valor: valorSelecionado },
+    data: { id: valorSelecionado },
     success: function (response) {
         console.log("Resposta do servidor:", response);
         if (response.toLowerCase().includes("success")) {

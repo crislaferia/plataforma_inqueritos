@@ -24,15 +24,18 @@ $collectionName = 'questionarios';
 $collection = $client->$databaseName->$collectionName;
 
 // Receber o valor a ser removido da solicitação POST
-$valorRemover = filter_var($_POST['valor']);
+$valorRemover = filter_var($_POST['id']);
 
 error_log("Antes da remoção. Valor a ser removido: " . $valorRemover);
 
-
 try {
+    // Converta a string do _id para um objeto MongoDB\BSON\ObjectID
+    // aparece que é erro mas funciona bem
+    $idObject = new MongoDB\BSON\ObjectId($valorRemover);
+
     // Remover o documento com o valor correspondente
-    $result = $collection->deleteOne(['valor' => $valorRemover]);
-error_log("Depois da remoção. Resultado: " . print_r($result, true));
+    $result = $collection->deleteOne(['_id' => $idObject]);
+    error_log("Depois da remoção. Resultado: " . print_r($result, true));
 
     // Enviar uma resposta para indicar o sucesso ou falha da operação
     if ($result->isAcknowledged()) {
@@ -46,4 +49,5 @@ error_log("Depois da remoção. Resultado: " . print_r($result, true));
     error_log("Erro ao remover a opção: " . $e->getMessage());
     echo "error";
 }
+
 ?>
