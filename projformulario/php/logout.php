@@ -14,7 +14,7 @@ session_destroy();
     <script>
         setTimeout(function() {
             window.location.href = "loginadmin.php";
-        }, 5500); 
+        }, 2500); 
     </script>
 </body>
 </html>

@@ -54,6 +54,9 @@
             <p>Os dados recolhidos neste inquérito serão confidenciais.</p>
         </div>
         <form class="botao-resposta" action="obrigado.php" method="post">
+
+
+        
             <?php
             // Connect to MongoDB
             require 'vendor/autoload.php';
@@ -61,12 +64,31 @@
 
 
             // Select the database and collection
-            $databaseName = 'plataformaiInqueritos';
+            $databaseName = 'plataformaInqueritos';
             $collectionName = 'questionarios';
             $collection = $client->$databaseName->$collectionName;
+            echo "success";
+            //$questionarioId = isset($_POST['id']) ? $_POST['id'] : null;
+            //$questionarioId ='65af998df4ae3f02297af012'; 
+            echo "antes do Valor de id: " . $_POST['id2'];
+            if (isset($_POST['id2'])) {
+            $questionarioId = isset($_POST['id2']) ? filter_var($_POST['id2']) : null;
+            echo "Valor de 'id' recebido com sucesso: " . $questionarioId;
+            echo "depois Valor de id: " . $_POST['id2'];
+            echo $questionarioId;
+            echo "success2";
+        } else {
+            echo "Erro: Valor de 'id' não está definido.";
+        }
+if ($questionarioId) {
+    // Converter o ID para o formato adequado (ObjectID)
+    $questionarioId = new MongoDB\BSON\ObjectID($questionarioId);
 
-            // Display the questionnaire
-            $perguntas = $collection->findOne();
+    // Consultar o MongoDB para obter o questionário específico
+    $perguntas = $collection->findOne(['_id' => $questionarioId]);
+    echo "success3";
+    // Verificar se o questionário foi encontrado
+    if ($perguntas) {
             foreach ($perguntas->perguntas as $pergunta) {
                 echo '<div class="pergunta">';
                 echo '<p>' . $pergunta->categoria . ': ' . $pergunta->pergunta . '</p>';
@@ -80,6 +102,11 @@
 
                 echo '</div>';
             }
+        }else {
+            echo "Questionário não encontrado.";
+        }}else {
+            echo "Valor de 'id' não está definido ou é inválido.";
+        }
             ?>
             <input type="submit" value="Enviar respostas">
         </form>
@@ -87,4 +114,3 @@
 </body>
 
 </html>
-

@@ -63,7 +63,8 @@ function enviarEmails($listaEmails, $linkCompleto) {
             $mail->Body = "Bem-vindo ao Cencal, clique no link abaixo para aceder o formulário: <a href='$linkCompleto'>$linkCompleto</a>";
             //echo 'Conteúdo do Link: ' . $linkCompleto;
             if ($mail->send()) {
-                echo 'E-mail enviado com sucesso para ' . $emails;
+                echo 'E-mail enviado com sucesso para ' . $emails .  '</br>' ;
+                
             } else {
                 throw new Exception('Erro ao enviar o e-mail: ' . $mail->ErrorInfo);
             }

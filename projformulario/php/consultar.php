@@ -23,7 +23,6 @@ if ($resultado) {
     }
 }
 
-$linkCompleto = isset($_SESSION['link']) ? $_SESSION['link'] : '';
 ?>
 
 <!-- Seu código HTML/PHP continua aqui -->
@@ -60,6 +59,36 @@ $linkCompleto = isset($_SESSION['link']) ? $_SESSION['link'] : '';
 </p>
 
 <script>
+    var valorSelecionado;
+    function onSpinnerChange() {
+     valorSelecionado = $('#formSelector').val();
+    console.log("Valor selecionado1:", valorSelecionado);
+    if (valorSelecionado) {
+        // Faça algo com o valor selecionado (por exemplo, enviar para o servidor)
+        console.log("Valor selecionado2:", valorSelecionado);
+        $.ajax({
+            type: "POST",
+            url: "php/pagina_respostas.php",
+            data: { id2: valorSelecionado },  // Correção aqui
+            success: function(response) {
+                // Lidar com a resposta do servidor, se necessário
+                console.error(valorSelecionado);
+            },
+            error: function(error) {
+                console.error("Erro na requisição AJAX:", error);
+            }
+        });
+    } else {
+        console.warn("Nenhum valor selecionado no spinner.");
+    }
+}
+
+
+    $(document).ready(function() {
+        // Atribuir a função onSpinnerChange ao evento de mudança do spinner
+        $('#formSelector').on('change', onSpinnerChange);
+    });
+
 function openPopup(url) {
         window.open(url, 'popup', 'width=550px,height=200px');
     }
@@ -102,7 +131,7 @@ function eliminarOpcao() {
             
             $.ajax({
     type: "POST",
-    url: "/projformulario/php/remover_opcao.php",
+    url: "php/remover_opcao.php",
     data: { id: valorSelecionado },
     success: function (response) {
         console.log("Resposta do servidor:", response);
