@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Input Form</title>
     <style>
       body {
@@ -12,6 +12,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: #2c2e3e;
             
         }
 
@@ -37,11 +38,18 @@
             align-items: center;
         }
 
+        .emailsContainerSt {
+            margin-top: 15px; 
+            margin-bottom: 15px;
+        }
+
         #modalContent {
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
+            max-width: 190px;
         }
+
     </style>
 </head>
 <body>
@@ -52,7 +60,8 @@
     <form id="emailForm" action="phpligaemail.php" method="post">
         <input type="email" id="emailInput" name="emails" placeholder="Insira os e-mails">
         <button type="button" onclick="adicionarEmail()">Adicionar</button>
-        <div type="email" id="emailsContainer" name="email"></div>
+        <p>Confirme os emails adicionados e altere caso necessário.</p>
+        <div class="emailsContainerSt" type="email" id="emailsContainer" name="email"></div>
         <button type="submit">Enviar</button>
         <button type="button" onclick="limparFormulario()">Limpar</button>
     </form>
@@ -92,7 +101,7 @@
 
         emailsContainer.appendChild(novoEmail);
 
-        if (emailsContainer.textContent !== "") {
+        if (emailsContainer.textContent !== " ") {
             emailsContainer.innerHTML += "; ";
         }
     });
@@ -152,12 +161,11 @@
 }
 emailInput.addEventListener("keydown", function(event) {
     // Verificar se a tecla pressionada é ; (ponto e vírgula), , (vírgula) ou espaço
-    if (event.key === ';' || event.key === ',' || event.key === ' ') {
+    if (event.key === ';' || event.key === ',' || event.key === ' ' || event.key === 'Enter') {
         adicionarEmail(); // Chamar a função adicionarEmail
         event.preventDefault(); // Evitar que o caractere seja inserido no campo de entrada
     }
 });
-
     </script>
 
 </body>
