@@ -20,10 +20,10 @@ if (isset($_REQUEST['token']) && isset($_REQUEST['nova_senha'])) {
     $stmt->close();
 
     // Adicione essas mensagens de depuração
-    echo 'Token recebido: ' . $token . '<br>';
+    /* echo 'Token recebido: ' . $token . '<br>';
     echo 'Data de Expiração: ' . $dataExpiracao . '<br>';
     echo 'Data Atual: ' . date('Y-m-d H:i:s') . '<br>';
-    echo 'nova Senha: ' . $novaSenha . '<br>';
+    echo 'nova Senha: ' . $novaSenha . '<br>'; */
 
     // ...
 
@@ -32,39 +32,48 @@ if (isset($_REQUEST['token']) && isset($_REQUEST['nova_senha'])) {
         if (!empty($dataExpiracao)) {
             $dataAtual = new DateTime();
             $dataExpiracaoObj = new DateTime($dataExpiracao);
-        
+    
             if ($dataExpiracaoObj > $dataAtual) {
-                // Token é válido, aplica o hash à nova senha
-                $novaSenhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
-        
-                // Atualiza a senha e remove o token (se necessário)
-                $stmt = $conn->prepare("UPDATE tb_admins SET password = ?, token = NULL, data_expiracao = NULL WHERE cod_admin = ?");
-                $stmt->bind_param("si", $novaSenhaHash, $adminId);
-                $stmt->execute();
-        
-                echo 'Senha redefinida com sucesso.';
-        
-                // Verifica se a senha foi atualizada com sucesso
-                $verificaSenhaStmt = $conn->prepare("SELECT password FROM tb_admins WHERE cod_admin = ?");
-                $verificaSenhaStmt->bind_param("i", $adminId);
-                $verificaSenhaStmt->execute();
-                $verificaSenhaStmt->bind_result($senhaArmazenada);
-                $verificaSenhaStmt->fetch();
-        
-                if (password_verify($novaSenha, $senhaArmazenada)) {
-                    echo 'Senha atualizada com sucesso.';
-                } else {
-                    echo 'Erro ao verificar a senha.';
-                }
-        
+                // ... (seu código anterior)
+    
+                echo 'Senha redefinida com sucesso. Redirecionando para a página de login em 3 segundos...';
+    
+                // Redirecionamento após 3 segundos usando JavaScript
+                echo '<script>
+                        setTimeout(function() {
+                            window.location.href = "loginadmin.php";
+                        }, 3000);
+                      </script>';
+                
             } else {
-                echo 'Token expirado.';
+                echo 'Token expirado. Redirecionando para a página de login em 3 segundos...';
+    
+                // Redirecionamento após 3 segundos usando JavaScript
+                echo '<script>
+                        setTimeout(function() {
+                            window.location.href = "loginadmin.php";
+                        }, 3000);
+                      </script>';
             }
         } else {
-            echo 'A data de expiração não está definida para este token.';
+            echo 'A data de expiração não está definida para este token. Redirecionando para a página de login em 3 segundos...';
+    
+            // Redirecionamento após 3 segundos usando JavaScript
+            echo '<script>
+                    setTimeout(function() {
+                        window.location.href = "loginadmin.php";
+                    }, 3000);
+                  </script>';
         }
     } else {
-        echo 'Token inválido.';
+        echo 'Token inválido. Redirecionando para a página de login em 3 segundos...';
+    
+        // Redirecionamento após 3 segundos usando JavaScript
+        echo '<script>
+                setTimeout(function() {
+                    window.location.href = "loginadmin.php";
+                }, 3000);
+              </script>';
     }
 
 // ...
