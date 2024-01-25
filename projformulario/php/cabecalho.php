@@ -14,9 +14,9 @@
         // Verificar se o utilizador é admin
         if (isset($_SESSION['admin']) && $_SESSION['admin']) {
             echo "<a class='link-dir' href='php/manage_user.php'>Utilizadores</a>";
-        } else {
+        } /*else {
             echo "<p>Utilizador não é um administrador</p>";
-        }
+        }*/ //verificar quem é utilizador
 
         echo "<a class='link-dir' href='php/logout.php'>Sair</a>";
     } else {

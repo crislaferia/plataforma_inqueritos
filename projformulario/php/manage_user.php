@@ -19,6 +19,7 @@ echo "<table border='1'>
           <th>nome</th>
           <th>email</th>
           <th>password</th>
+          <th>admin</th>
         </tr>";
 
 while ($row = $result->fetch_assoc()) {
@@ -27,6 +28,8 @@ while ($row = $result->fetch_assoc()) {
             <td>{$row['nome']}</td>
             <td>{$row['email']}</td>
             <td>********</td> <!-- Senha ocultada -->
+            <td>{$row['admin']}</td>
+
 
             <td>
               <a href='edit_user.php?id={$row['cod_admin']}'>Editar</a>
