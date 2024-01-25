@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Assunto e corpo do e-mail
             $mail->Subject = 'Redefinição de Senha';
             $mail->isHTML(true);
-            $mail->Body = 'Clique no seguinte link para redefinir sua senha: ' . $linkRedefinicao;
+            $mail->Body = 'Clique no seguinte <a href="' . $linkRedefinicao . '">link</a> para redefinir sua senha.';
 
             // Envia o e-mail
             $mail->send();
