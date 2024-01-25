@@ -27,7 +27,7 @@ while ($row = $result->fetch_assoc()) {
             <td>{$row['cod_admin']}</td>
             <td>{$row['nome']}</td>
             <td>{$row['email']}</td>
-            <td>********</td> <!-- Senha ocultada -->
+            <td>{$row['password']}</td> <!-- Senha ocultada -->
             <td>{$row['admin']}</td>
 
 

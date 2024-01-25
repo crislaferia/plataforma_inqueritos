@@ -26,6 +26,7 @@ if ($result->num_rows > 0) {
     echo "<input type='hidden' name='cod_admin' value='{$admin['cod_admin']}'>";
     echo "<input type='submit' value='Salvar'>";
     echo "</form>";
+    
 } else {
     // Lidar com o caso em que o admin não foi encontrado
     echo "Admin não encontrado.";

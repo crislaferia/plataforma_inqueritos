@@ -21,7 +21,7 @@
                     <input type="text" name="username" placeholder="Username" required>
                     <input type="password" name="password" placeholder="Password" required>
                     <input type="submit" value="Login">
-                    <a href="#" class="access">Não consegue aceder? Clique aqui.</a>
+                    <a href="redefinir.php" class="access">Esqueceu sua senha? Clique aqui para redefinir.</a>
                 </form>
             </div>
         </div>
