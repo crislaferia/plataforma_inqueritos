@@ -12,14 +12,12 @@ $options = " ";
 
 if ($resultado) {
     foreach ($resultado as $documento) {
-        // Verificar se as chaves existem antes de acessá-las
         $id = isset($documento['_id']) ? $documento['_id'] : '';
         $descricao = isset($documento['descricao']) ? $documento['descricao'] : '';
-
-        // Converter o _id para uma string
-    $idString = (string) $id;
-
-        $options .= "<option value='" . $idString . "'>" . $descricao . "</option>";
+    
+        $idString = (string) $id;
+    
+        $options .= "<option class='form-selector-option' data-id='" . $idString . "' value='" . $idString . "'>" . $descricao . "</option>";
     }
 }
 
@@ -49,7 +47,7 @@ if ($resultado) {
 </select>
 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Opções</button>
 <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#" onclick="link2">Editar</a></li>
+            <li><a class="dropdown-item" href="#" onclick="openPopup(gerarLink())">Editar</a></li>
             <li><a class="dropdown-item" href="#" onclick="openPopup('php/enviodemail.php')">Enviar</a></li>
             <li><a class="dropdown-item" href="#" onclick="openPopup2()">Gerar Link</a></li>
 
@@ -59,20 +57,34 @@ if ($resultado) {
 </p>
 
 <script>
+/* function obterParametroURL(nome) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(nome);
+}
+
+// Uso
+var idDaURL = obterParametroURL('id'); */
+
+
     var valorSelecionado;
     function onSpinnerChange() {
-     valorSelecionado = $('#formSelector').val();
+    valorSelecionado = $('#formSelector').val();
     console.log("Valor selecionado1:", valorSelecionado);
+
+    var idSelecionado = $('.form-selector-option:selected').data('id');
+    console.log("ID selecionado:", idSelecionado);
+
     if (valorSelecionado) {
-        // Faça algo com o valor selecionado (por exemplo, enviar para o servidor)
-        console.log("Valor selecionado2:", valorSelecionado);
+        // Faça algo com o valor selecionado e o ID (por exemplo, enviar para o servidor)
+        console.log("Valor selecionado2:", valorSelecionado, " | ID selecionado:", idSelecionado);
+        
         $.ajax({
             type: "POST",
             url: "php/pagina_respostas.php",
-            data: { id2: valorSelecionado },  // Correção aqui
+            data: { idmongo: idSelecionado }, // Correção aqui
             success: function(response) {
                 // Lidar com a resposta do servidor, se necessário
-                console.error(valorSelecionado);
+                console.error(idSelecionado);
             },
             error: function(error) {
                 console.error("Erro na requisição AJAX:", error);
@@ -82,6 +94,7 @@ if ($resultado) {
         console.warn("Nenhum valor selecionado no spinner.");
     }
 }
+
 
 
     $(document).ready(function() {
@@ -94,7 +107,8 @@ function openPopup(url) {
     }
 
     function openPopup2() {
-    var valorSelecionado = $('#formSelector').val();
+        
+    var valorSelecionado = gerarLink();
     if (valorSelecionado) {
         Swal.fire({
             title: 'LINK',
@@ -102,6 +116,24 @@ function openPopup(url) {
             icon: 'info',
             confirmButtonText: 'OK'
         });
+    } else {
+        console.warn("Nenhuma opção selecionada para gerar link.");
+    }
+}
+function gerarLink() {
+    var valorSelecionado = $('#formSelector').val();
+    if (valorSelecionado) {
+        // Faça algo com o valor selecionado (por exemplo, enviar para o servidor)
+        console.log("Gerando link para o valor selecionado:", valorSelecionado);
+
+        // Chame a função para gerar o link
+        // Substitua esta linha pelo código real da função gerarLink()
+        // gerarLink(valorSelecionado);
+
+        // Exemplo: Abrir um popup com o link
+        linkNovoId = 'http://localhost/projformulario/php/pagina_respostas.php?id=' + valorSelecionado;
+        //openPopup(linkNovoId);
+        return linkNovoId;
     } else {
         console.warn("Nenhuma opção selecionada para gerar link.");
     }
