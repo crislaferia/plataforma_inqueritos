@@ -46,7 +46,7 @@ if ($resultado) {
             </select>
             <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Opções</button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#" onclick="">Editar</a></li>
+                <li><a class="dropdown-item" href="#" onclick="openPopup('php/pagina_graficos.php')">Editar</a></li>
                 <li><a class="dropdown-item" href="#" onclick="enviarFormulario()">Enviar</a></li>
                 <li><a class="dropdown-item" href="#" onclick="openPopup2()">Gerar Link</a></li>
                 <li><hr class="dropdown-divider"></li>
