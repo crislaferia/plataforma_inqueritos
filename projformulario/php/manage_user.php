@@ -7,6 +7,9 @@ if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
 ?>
+<style>
+    
+    </style>
 <?php
 // Consulta para obter utilizadores
 $sql = "SELECT * FROM projeto_final_logins.tb_admins";
@@ -41,6 +44,7 @@ while ($row = $result->fetch_assoc()) {
 
 echo "</table>";
 echo "<a href='create_user.php'>Adicionar Novo Utilizador</a>";
+echo "<a href='../index.php' class='back-button' style='margin-left: 785px;'>Voltar</a>";
 ?>
 <script>
 function confirmDelete(adminId) {
