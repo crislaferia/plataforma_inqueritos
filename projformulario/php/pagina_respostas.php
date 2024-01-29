@@ -52,8 +52,12 @@
                 agradecemos que preencha este inquérito, já que esta avaliação é fundamental para a eventual implementação
                 de mudanças e processos de melhorias dos serviços prestados.</p>
             <p>Os dados recolhidos neste inquérito serão confidenciais.</p>
+        
         </div>
+        
+        
         <form class="botao-resposta" action="obrigado.php" method="post">
+
 
 
         
@@ -102,10 +106,16 @@ if ($questionarioId) {
     $perguntas = $collection->findOne(['_id' => $questionarioId]);
     // echo "success3";
     // Verificar se o questionário foi encontrado
+    
     if ($perguntas) {
+
+        echo '<div class="descricao">';
+        echo '<p>' . $perguntas->descricao . '</p>';
+        echo '</div>';
             foreach ($perguntas->perguntas as $pergunta) {
                 echo '<div class="pergunta">';
                 echo '<p>' . $pergunta->categoria . ': ' . $pergunta->pergunta . '</p>';
+               
 
                 // Add options for response (assuming they are selection options)
                 foreach ($pergunta->opcoes as $opcao) {
