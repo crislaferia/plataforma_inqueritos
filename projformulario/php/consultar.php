@@ -46,7 +46,9 @@ if ($resultado) {
             </select>
             <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Opções</button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#" onclick="openPopup('php/pagina_graficos.php')">Editar</a></li>
+                <li><a class="dropdown-item" href="#" onclick=" ">Editar</a></li>
+                <li><a class="dropdown-item" href="#" onclick="openPopup(gerarLink())">Visualizar</a></li>
+
                 <li><a class="dropdown-item" href="#" onclick="enviarFormulario()">Enviar</a></li>
                 <li><a class="dropdown-item" href="#" onclick="openPopup2()">Gerar Link</a></li>
                 <li><hr class="dropdown-divider"></li>
@@ -108,9 +110,15 @@ window.open('php/enviodemail.php?idmongo=' + valorSelecionado, 'popup', 'width=5
         }
     }
 
-     function openPopup(url) {
-        window.open(url, 'popup', 'width=550px,height=200px');
-    } 
+    function openPopup(url) {
+    var popup = window.open(url, 'popup', 'width=550,height=200');
+
+    // Aguarda o carregamento do conteúdo
+    popup.onload = function() {
+        // Ajusta a largura e a altura com base no conteúdo
+        popup.resizeTo(popup.document.body.scrollWidth, popup.document.body.scrollHeight);
+    };
+}
 
     function openPopup2() {
         var valorSelecionado = gerarLink();
@@ -132,7 +140,7 @@ window.open('php/enviodemail.php?idmongo=' + valorSelecionado, 'popup', 'width=5
             console.log("Gerando link para o valor selecionado:", valorSelecionado);
 
             linkNovoId = 'http://localhost/projformulario/php/pagina_respostas.php?id=' + valorSelecionado;
-            openPopup(linkNovoId);
+            
             return linkNovoId;
         } else {
             console.warn("Nenhuma opção selecionada para gerar link.");
