@@ -1,3 +1,22 @@
+<?php
+// Exemplo de logs em emviodemail.php
+//$idSelecionado ='65b127b66ead7fffb98c249x';
+
+$idSelecionado = isset($_GET['idmongo']) ? filter_var($_GET['idmongo'], FILTER_DEFAULT) : null;
+error_log("Valor recebido de consultar.php GET : " . $idSelecionado);
+// Exemplo de logs para depuração
+/* $idmongo = isset($_POST['idmongo']) ? $_POST['idmongo'] : '';
+$emails = isset($_POST['emails']) ? $_POST['emails'] : '';
+
+error_log("Valor recebido de consultar.php (idmongo): " . $idmongo);
+error_log("E-mails recebidos de consultar.php: " . $emails);
+
+// Adicione estas linhas para ver o valor do idmongo no log
+echo "Valor do idmongo no log: " . $idmongo; */
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,6 +83,9 @@
         <div class="emailsContainerSt" type="email" id="emailsContainer" name="email"></div>
         <button type="submit">Enviar</button>
         <button type="button" onclick="limparFormulario()">Limpar</button>
+        
+        <input type="hidden" name="idmongo" id="hiddenIdmongoInput" value="<?php echo $idSelecionado; ?>">
+    <input type="hidden" name="emails" id="hiddenEmailsInput">
     </form>
     <!-- Modal para exibir a resposta do servidor -->
     <div id="myModal">
@@ -73,6 +95,7 @@
 </div>
 
     <script>
+        
         const emailInput = document.getElementById("emailInput");
         const emailsContainer = document.getElementById("emailsContainer");
         const emailForm = document.getElementById("emailForm");
@@ -81,6 +104,8 @@
 
         function adicionarEmail() {
     const valor = emailInput.value.trim();
+
+    
     
     // Verificar se o valor inserido corresponde a um email válido
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -110,40 +135,38 @@
 }
 
 
-        emailForm.addEventListener("submit", function(event) {
-            event.preventDefault();
+emailForm.addEventListener("submit", function(event) {
+    event.preventDefault();
 
-            // Remover botões de remoção antes de enviar os e-mails
-            const removeButtons = document.querySelectorAll('.removeButton');
-            removeButtons.forEach(button => {
-                button.parentNode.removeChild(button);
-            });
+    // Remover botões de remoção antes de enviar os e-mails
+    const removeButtons = document.querySelectorAll('.removeButton');
+    removeButtons.forEach(button => {
+        button.parentNode.removeChild(button);
+    });
 
-            const hiddenInput = document.createElement("input");
-            hiddenInput.type = "hidden";
-            hiddenInput.name = "emails";
-            hiddenInput.value = Array.from(emailsContainer.children).filter(element => element.nodeName === "SPAN").map(element => element.textContent).join(',');
+    // Obter e definir o valor de emails no campo oculto
+    const hiddenEmailsInput = document.getElementById("hiddenEmailsInput");
+    hiddenEmailsInput.value = Array.from(emailsContainer.children).filter(element => element.nodeName === "SPAN").map(element => element.textContent).join(',');
 
-            emailForm.appendChild(hiddenInput);
+    // Enviar o formulário com os dados para o servidor
+    fetch('phpligaemail.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(new FormData(emailForm)).toString(),
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Exibir a resposta do servidor no modal
+        modalContent.textContent = data;
+        modal.style.display = "flex";
+    })
+    .catch(error => {
+        console.error('Erro ao enviar e-mails:', error);
+    });
+});
 
-            // Enviar o formulário com os dados para o servidor
-            fetch('phpligaemail.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(new FormData(emailForm)).toString(),
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Exibir a resposta do servidor no modal
-                modalContent.textContent = data;
-                modal.style.display = "flex";
-            })
-            .catch(error => {
-                console.error('Erro ao enviar e-mails:', error);
-            });
-        });
 
         // Fechar o modal quando clicar fora dele
         window.onclick = function(event) {
@@ -166,6 +189,7 @@ emailInput.addEventListener("keydown", function(event) {
         event.preventDefault(); // Evitar que o caractere seja inserido no campo de entrada
     }
 });
+
     </script>
 
 </body>

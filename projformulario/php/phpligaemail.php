@@ -8,21 +8,33 @@ include 'phpMailerConfiguration.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+// Em phpligaemail.php
+$idmongo = isset($_POST['idmongo']) ? $_POST['idmongo'] : null;
+//$idmongo= 'tes34';
+$emails = isset($_POST['emails']) ? $_POST['emails'] : null;
 
-function gerarLinkAleatorio($tamanho) {
-  $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  $link = '';
-  for ($i = 0; $i < $tamanho; $i++) {
-    $indice = mt_rand(0, strlen($caracteres) - 1);
-    $link .= $caracteres[$indice];
+// Aqui você pode usar $idmongo e $emails conforme necessário
+error_log("Valor recebido de enviodemail.php (idmongo): " . $idmongo);
+error_log("E-mails recebidos de enviodemail.php: " . $emails);
+
+function obterLinkCompleto($idteste) {
+  //$linkAleatorio = isset($_POST['idmongo']) ? $_POST['idmongo'] : null;
+  $linkAleatorio = $idteste;
+  error_log("Valor recebido de enviodemail.php: " . $linkAleatorio);
+
+  // Verifica se $linkAleatorio não é vazio antes de adicionar à URL
+  if (!empty($linkAleatorio)) {
+    $linkCompleto = "http://localhost/projformulario/php/pagina_respostas.php?id=" . urlencode($linkAleatorio);
+
+    // Adiciona um log para depuração
+    error_log("Link Completo: " . $linkCompleto);
+
+    return $linkCompleto;
+  } else {
+    // Podes escolher lidar com o caso de $linkAleatorio vazio de acordo com a tua lógica
+    // Aqui, estou a retornar uma string vazia, mas podes ajustar conforme necessário.
+    return 'sem link';
   }
-  return $link;
-}
-
-function obterLinkCompleto() {
-  $linkAleatorio = gerarLinkAleatorio(8);
-  $mais = "?=";
-  return "http://localhost/plataforma_inqueritos/projformulario/php/pagina_respostas.php" . $mais . $linkAleatorio;
 }
 
 function enviarEmails($listaEmails, $linkCompleto, $config) {
@@ -69,12 +81,21 @@ function enviarEmails($listaEmails, $linkCompleto, $config) {
   echo 'Emails enviados com sucesso!';
 }
 
-$linkCompleto = obterLinkCompleto();
-$_SESSION['link'] = $linkCompleto;
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $emailInputado = isset($_POST['emails']) ? $_POST['emails'] : '';
-  $linkCompleto = isset($_SESSION['link']) ? $_SESSION['link'] : '';
-  enviarEmails($emailInputado, $linkCompleto, $config);
+
+  // Check if any emails are provided
+  if (empty($emailInputado)) {
+    echo 'Nenhum email fornecido. Por favor, insira pelo menos um email.';
+  } else {
+    $linkCompleto = obterLinkCompleto($idmongo);
+    $_SESSION['link'] = $linkCompleto;
+    
+    try {
+      enviarEmails($emailInputado, $linkCompleto, $config);
+    } catch (Exception $e) {
+      echo 'Erro: ' . $e->getMessage();
+    }
+  }
 }
 ?>
