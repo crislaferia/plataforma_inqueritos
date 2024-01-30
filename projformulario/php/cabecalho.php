@@ -4,12 +4,12 @@
     </a>
 </div>
 
-<div class="menu-links">
+<div class="menu-links" style="font-family: Arial, sans-serif";>
     <?php
     
     if (isset($_SESSION['username'])) {
         $usernameCaps = strtoupper($_SESSION['username']);
-        echo "<span>Bem-vindo, " . $usernameCaps . "!</span>";
+        echo "<span class='link-id'>Bem-vindo, " . $usernameCaps . "!</span>";
 
         // Verificar se o utilizador é admin
         if (isset($_SESSION['admin']) && $_SESSION['admin']) {

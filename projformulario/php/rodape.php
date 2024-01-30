@@ -1,1 +1,1 @@
-<p> &copy; 2024 Projecto Cencal. All rights reserved.</p>
+<p style="font-family: Arial, sans-serif; font-size: 17px;"> &copy; 2024 Projecto Cencal. All rights reserved.</p>
