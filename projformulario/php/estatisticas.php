@@ -48,6 +48,8 @@ if ($resultado) {
             <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="#" onclick="openPopup('php/pagina_graficos.php', event)">Abrir Gráfico</a></li>
             <li><a class="dropdown-item" href="#" onclick="mostrarGrafico('php/pagina_graficos.php')">Visualizar Gráfico</a></li>
+            <li><a class="dropdown-item" href="#" onclick="mostrarInq('php/pagina_respondidos.php')">Visualizar Respondido</a></li>
+
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#" onclick="eliminarOpcao()">Eliminar</a></li>
             </ul>
@@ -81,4 +83,20 @@ function mostrarGrafico(url) {
         // Atualiza o conteúdo da div com a imagem do gráfico
         $('#graficoContainer').html('<img src="' + url + '" alt="Gráfico">');
     }
+    function mostrarInq(url) {
+    // Faz uma requisição AJAX para obter o conteúdo do arquivo PHP
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(response) {
+            // Atualiza o conteúdo da div com o conteúdo do arquivo PHP
+            $('#graficoContainer').html(response);
+        },
+        error: function() {
+            // Manipula erros, se necessário
+            console.error('Erro ao carregar ' + url);
+        }
+    });
+}
+
 </script>
