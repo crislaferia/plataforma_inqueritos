@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Criar Projeto</title>
 
-  <link rel="stylesheet" href="css/criarformulario.css" />
+  <link rel="stylesheet" href="/css/criarformulario.css" />
 </head>
 <body>
   <div class="kanban">
@@ -35,6 +35,6 @@
     </div>   
   </div>
 
-  <script src="js/criarformulario.js"></script>
+  <script src="/js/criarformulario.js"></script>
 </body>
 </html>

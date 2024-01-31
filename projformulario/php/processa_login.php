@@ -1,6 +1,6 @@
 <?php
 session_unset();
-session_destroy();
+//session_destroy();
 session_start();
 
 $email = $_POST['username'];
@@ -23,7 +23,7 @@ if (mysqli_num_rows($resultado) <= 0) {
         $nome = strtoupper($row['nome']);
         $_SESSION['username'] = $nome;
 
-        // Adicione mensagens de depuração para verificar o valor de $row['admin']
+        /* // Adicione mensagens de depuração para verificar o valor de $row['admin']
         echo "Valor de admin no banco de dados: " . $row['admin'] . "<br>";
 
         // Logo após autenticar o utilizador e definir $_SESSION['admin']
@@ -32,7 +32,7 @@ if (mysqli_num_rows($resultado) <= 0) {
             echo "Utilizador é um administrador<br>";
         } else {
             echo "Utilizador NÃO é um administrador<br>";
-        }
+        } */
 
         $msg = "Bem-vindo $nome";
         echo "<script>alert('".$msg."');</script>";
@@ -46,14 +46,14 @@ if (mysqli_num_rows($resultado) <= 0) {
             $_SESSION['username'] = $nome;
 
             // Adicione mensagens de depuração para verificar o valor de $row['admin']
-            echo "Valor de admin no banco de dados: " . $row['admin'] . "<br>";
+           // echo "Valor de admin no banco de dados: " . $row['admin'] . "<br>";
 
             // Logo após autenticar o utilizador e definir $_SESSION['admin']
             if ($row['admin'] == 1) {
                 $_SESSION['admin'] = true;
-                echo "Utilizador é um administrador<br>";
+                /* echo "Utilizador é um administrador<br>";
             } else {
-                echo "Utilizador NÃO é um administrador<br>";
+                echo "Utilizador NÃO é um administrador<br>"; */
             }
 
             $msg = "Bem-vindo $nome";

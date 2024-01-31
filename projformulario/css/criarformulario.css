@@ -2,15 +2,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'poppins';
+  font-family: Arial, sans-serif;
   font-size: 16px;
 }
 
-body {
+/* body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-}
+} */
 
 .kanban {
   display: flex;

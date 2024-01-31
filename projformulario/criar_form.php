@@ -14,9 +14,12 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Texte Index</title>
+    <title>Criar</title>
+    <link rel="stylesheet" href="css/criarformulario.css" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/menulateral.css" />
+
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <style>
        
@@ -35,12 +38,12 @@ if (!isset($_SESSION['username'])) {
         <?php include ('php/menuLateral.php'); ?>
         </nav>
 
-        <section class="sectionhome">
+        <section class="sectionhome" style="overflow: hidden;">
         <?php include ('php/criarformulario.php'); ?>
         </section>
     </div>
 
-    <footer>
+    <footer style="overflow: hidden; font-family: Arial, sans-serif; font-size: 16px;">
         <?php include ('php/rodape.php'); ?>
     </footer>
 </body>

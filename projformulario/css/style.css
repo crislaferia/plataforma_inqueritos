@@ -1,4 +1,5 @@
 
+
 body {
   background-color: #2c2e3e;
   display: flex;
@@ -512,6 +513,7 @@ body {
       margin-left: 20px; /* Adiciona espaçamento entre a imagem e o link */
       color: white;
       text-decoration: none;
+      font-size: 20px;
   }
   
   .dropdown {
@@ -839,7 +841,6 @@ header {
 
 
 .nav {
-    width: 150px;
     background-color: #2c2e3e;
     padding-left: 30px;
     padding-top: 15px;
@@ -852,15 +853,15 @@ header {
 
 .sectionhome {
     flex: 1;
-    padding-top: 20px;
-    padding-left: 20px;
-    overflow: auto; /* Adiciona rolagem se o conteúdo exceder a altura da seção */
-    max-height: 70vh; /* Define uma altura máxima para a seção, ajuste conforme necessário */
+    overflow-y: auto;
+    max-height: 445px; /* Define uma altura máxima para a seção, ajuste conforme necessário */
+    max-width: 800px;
     background-color: #F5F8FA;
     display: flex;
     flex-direction: column;
+    padding-left: 15px;
+    padding-top: 10px;
     margin-top: 0;
-    margin-left: 90px; /* Considera a largura da barra lateral */
     z-index: 0; /* Garante que a section esteja abaixo do nav */
 }
 
@@ -874,4 +875,5 @@ footer {
 
 .menu-links{
   margin-right: 30px;
+  font-size: 17px;
 }
