@@ -1,12 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
   const columns = document.querySelectorAll('.column');
   const items = document.querySelectorAll('.item');
+  const saveFormButton = document.querySelector('button');
+  const popup = document.getElementById('popup');
+  const closePopupButton = document.getElementById('close-popup');
+  saveFormButton.style.display = 'none';
   let meuTexto = '';
   const perguntasPorContainer = {};
   let draggedItem = null;
   let originalIndex = null;
+  let formTitle = '';
   let containerCreated = false;
   let contadorPerguntas = 0;
+
+
+
+  // Adiciona evento de "dragend" para ocultar o botão "Guardar formulário" quando o arraste é finalizado
+  document.addEventListener('dragend', () => {
+    saveFormButton.style.display = 'block';
+  });
+
+  saveFormButton.addEventListener('click', () => {
+    if (!validateForm()) {
+      return; // Se o título do formulário não foi preenchido, interrompa o processo
+    }
+
+    if (!validateQuestions()) {
+      return; // Se alguma pergunta não foi preenchida, interrompa o processo
+    }
+
+    popup.style.display = 'block';
+  });
+
+  closePopupButton.addEventListener('click', () => {
+    popup.style.display = 'none';
+  });
+
+
 
   items.forEach((item, index) => {
     item.addEventListener('dragstart', (e) => {
@@ -71,9 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         containerCreated = true;
       }
     });
-
-
-
   });
 
   function getDragAfterElement(column, y) {
@@ -99,8 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('drop', (e) => {
     e.preventDefault();
   });
-
-
   //CRIAR CONTAINER "BOTÕES DE ESCOLHA"
 
   function createRadioGroup(container) {
@@ -130,10 +155,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.style.display = 'flex';
+    buttonsContainer.style.alignItems = 'center';
 
     const addButton = document.createElement('button');
     addButton.classList.add('action-button');
     addButton.textContent = '+';
+    addButton.style.width = '50px';
+    addButton.style.height = '50px';
+    addButton.style.marginRight = '20px'; // Adiciona um espaçamento à direita do botão
     addButton.addEventListener('click', () => {
       const newOption = createRadioButton('Nova Opção');
       radioGroup.appendChild(newOption);
@@ -143,6 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const removeButton = document.createElement('button');
     removeButton.classList.add('action-button');
     removeButton.textContent = '-';
+    removeButton.style.width = '50px';
+    removeButton.style.height = '50px';
+    removeButton.style.marginRight = '20px';
     removeButton.addEventListener('click', () => {
       const lastOption = radioGroup.lastChild;
       if (lastOption) {
@@ -153,23 +187,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const removeContainerButton = document.createElement('button');
     removeContainerButton.classList.add('delete-button');
-    removeContainerButton.textContent = 'Apagar';
+    removeContainerButton.textContent = 'Apagar Pergunta';
+    removeContainerButton.style.fontSize = '16px';
+    removeContainerButton.style.width = '200px';
+    removeContainerButton.style.height = '50px';
     removeContainerButton.addEventListener('click', () => {
       removeRadioGroup(containerId); // Chama removeRadioGroup com o identificador único
     });
 
+    buttonsContainer.appendChild(addButton);
+    buttonsContainer.appendChild(removeButton);
+    buttonsContainer.appendChild(removeContainerButton);
+
+
     radioGroup.appendChild(textInput);
-    radioGroup.appendChild(addButton);
-    radioGroup.appendChild(removeButton);
-    radioGroup.appendChild(removeContainerButton);
-
-    //PARA ADICIONAR APENAS UM RADIO BUTTON
-    /*
-    // Adiciona o primeiro radio button
-    const initialOption = createRadioButton('editar');
-    radioGroup.appendChild(initialOption);
-    */
-
+    radioGroup.appendChild(buttonsContainer);
 
     for (let i = 1; i <= 4; i++) {
       const newOption = createRadioButton(`Opção ${i}`);
@@ -249,7 +281,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const removeContainerButton = document.createElement('button');
     removeContainerButton.classList.add('delete-button');
-    removeContainerButton.textContent = 'Apagar';
+    removeContainerButton.textContent = 'Apagar Pergunta';
+    removeContainerButton.style.fontSize = '16px';
+    removeContainerButton.style.width = '200px';
+    removeContainerButton.style.height = '50px';
     removeContainerButton.addEventListener('click', () => {
       removeSimpleQuestionGroup(containerId);
     });
@@ -315,7 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const removeContainerButton = document.createElement('button');
     removeContainerButton.classList.add('delete-button');
-    removeContainerButton.textContent = 'Apagar';
+    removeContainerButton.textContent = 'Apagar Pergunta';
+    removeContainerButton.style.fontSize = '16px';
+    removeContainerButton.style.width = '200px';
+    removeContainerButton.style.height = '50px';
     removeContainerButton.addEventListener('click', () => {
       removeEvaluationGroup(containerId);
     });
@@ -346,6 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     observationsText.contentEditable = true; // Torna o conteúdo editável
     observationsGroup.appendChild(observationsText)
     observationsText.classList.add('text-editable')
+    observationsGroup.width = '90%';
 
     const textInput = document.createElement('input');
     textInput.type = 'text';
@@ -356,13 +395,16 @@ document.addEventListener('DOMContentLoaded', () => {
     textInput.style.padding = '5px';
     textInput.style.cursor = 'default'; // Adiciona um cursor padrão para indicar que não é editável
     textInput.style.height = '150px'; // Define a altura desejada, ajuste conforme necessário
-    textInput.style.width = '250px';
+    textInput.style.width = '90%';
 
     textInput.readOnly = true;
 
     const removeContainerButton = document.createElement('button');
     removeContainerButton.classList.add('delete-button');
-    removeContainerButton.textContent = 'Apagar';
+    removeContainerButton.textContent = 'Apagar Pergunta';
+    removeContainerButton.style.fontSize = '16px';
+    removeContainerButton.style.width = '200px';
+    removeContainerButton.style.height = '50px';
     removeContainerButton.addEventListener('click', () => {
       removeObservationsGroup(containerId);
     });
@@ -388,10 +430,116 @@ document.addEventListener('DOMContentLoaded', () => {
     return questionText;
   }
 
-  // GUARDAR E GERAR LINK 
+  const formTitleInput = document.getElementById('form-title');
+  formTitleInput.addEventListener('input', () => {
+    formTitle = formTitleInput.value;
+  });
 
+  // verificacoes 
+
+  function validateForm() {
+    formTitle = document.getElementById('form-title').value;
+    if (!formTitle.trim()) {
+      alert('O título do formulário não foi preenchido.');
+      return false;
+    }
+    return true;
+  }
+
+  function validateQuestions() {
+    const questionInputs = document.querySelectorAll('.question-input');
+    for (const input of questionInputs) {
+      if (!input.value.trim()) {
+        alert('Uma das perguntas não foi preenchida.');
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+  function convertContentToJSON() {
+    const contentor = document.getElementById('contentor');
+    const questions = contentor.querySelectorAll('.radio-group, .simple-question-group, .evaluation-group, .observations-group');
+
+    const formData = {};
+
+    // Adiciona o título do formulário ao primeiro objeto no array de formData
+    formData.title = formTitle;
+
+    questions.forEach((question, index) => {
+      const questionData = {
+        type: question.classList.contains('radio-group') ? 'radio-group' :
+          question.classList.contains('simple-question-group') ? 'simple-question-group' :
+            question.classList.contains('evaluation-group') ? 'evaluation-group' :
+              question.classList.contains('observations-group') ? 'observations-group' : 'unknown',
+        question: question.querySelector('.question-input')?.value || '',
+        options: [],
+        reply: [null]
+      };
+
+      if (questionData.type === 'radio-group') {
+        const radioButtons = question.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach((radioButton) => {
+          const labelSpan = radioButton.nextElementSibling;
+          questionData.options.push(labelSpan.textContent.trim());
+        });
+      }
+
+      if (questionData.type === 'evaluation-group') {
+        questionData.options = [];
+
+        // Adiciona 5 opções de 1 a 5
+        for (let i = 1; i <= 5; i++) {
+          questionData.options.push(i.toString());
+        }
+      }
+
+      if (questionData.type === 'observations-group') {
+        delete questionData.options;
+      }
+
+      if (questionData.type === 'simple-question-group') {
+        delete questionData.options;
+      }
+
+      formData[`question_${index + 1}`] = questionData;
+    });
+
+    const jsonData = JSON.stringify(formData, null, 2);
+    console.log(jsonData);
+
+    // Aqui você pode decidir o que fazer com o JSON, como enviá-lo para um servidor ou exibi-lo no console
+    // Fazer solicitação POST para o script PHP
+
+
+    
+    fetch('php/saveForm.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Questionário salvo com sucesso:', data);
+        // Aqui você pode decidir o que fazer após salvar o questionário, como redirecionar o usuário
+      })
+      .catch(error => {
+        console.error('Erro ao salvar questionário:', error);
+        // Lide com o erro de alguma forma apropriada para o seu aplicativo
+      });
+
+      
+  }
+
+  // Adicione o evento de clique ao botão de salvar
   const saveButton = document.querySelector('button');
-  saveButton.addEventListener('click', () => {
+  saveButton.addEventListener('click', saveFormAndConvertToJSON);
+
+  function saveFormAndConvertToJSON() {
+    
     // Remover botões específicos após salvar o formulário
     //"BOTÕES DE ESCOLHA"
     const radioGroupContainers = document.querySelectorAll('.radio-group-container');
@@ -412,18 +560,17 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         // Caso contrário, torná-lo não editável (para outros tipos de elementos)
         element.setAttribute('contenteditable', 'false');
-
       }
-
-      const meuDocumento = { titulo: 'Meu Formulário', conteudoHTML: '...' };
-      inserirDocumento('formularios', meuDocumento);
-      consultarDocumentos('formularios');
     });
+
     // Aguardar um curto período (ex: 100ms) antes de salvar o formulário
     setTimeout(() => {
       saveForm();
+      convertContentToJSON();
+ // Chamar a função de conversão para JSON após salvar o formulário
     }, 100);
-  });
+  }
+
 
 
   function saveForm() {
@@ -506,12 +653,14 @@ document.addEventListener('DOMContentLoaded', () => {
       <link rel="stylesheet" href="/css/criarformulario.css" />
     </head>
     <body>
+    <div id=contentor>
     ${formContentClone.innerHTML}
       <script>
         document.addEventListener('DOMContentLoaded', () => {
           // Inserir código JS dinâmico para restaurar a edição dos rótulos, se necessário
         });
       </script>
+    </div>
     </body>
     </html>`;
 
@@ -524,64 +673,9 @@ document.addEventListener('DOMContentLoaded', () => {
     linkDownload.download = `${fileName}.html`;
 
     // Simula um clique no link para iniciar o download
-    linkDownload.click();
+    //linkDownload.click();
+
   }
-
-  //LIGACAO MONGODB
-
-  const { MongoClient } = require('mongodb');
-  // ... (restante do código)
-
-  const uri = 'mongodb://localhost:27017/plataformaiInqueritos'; // Substitua com o URI de conexão ao seu MongoDB
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-  // Função para conectar ao MongoDB
-  async function conectarAoMongoDB() {
-    try {
-      await client.connect();
-      console.log('Conectado ao MongoDB');
-    } catch (erro) {
-      console.error('Erro ao conectar ao MongoDB:', erro);
-    }
-  }
-
-  // Função para fechar a conexão
-  async function fecharConexao() {
-    await client.close();
-    console.log('Conexão fechada');
-  }
-
-  // Função para inserir documento no MongoDB
-  async function inserirDocumento(teste, meuDocumento) {
-    const db = client.db();
-    const collection = db.collection(teste);
-
-    try {
-      const resultado = await collection.insertOne(meuDocumento);
-      console.log('Documento inserido:', resultado.insertedId);
-    } catch (erro) {
-      console.error('Erro ao inserir documento:', erro);
-    }
-  }
-
-  // Função para consultar documentos no MongoDB
-  async function consultarDocumentos(teste) {
-    const db = client.db();
-    const collection = db.collection(teste);
-
-    try {
-      const documentos = await collection.find().toArray();
-      console.log('Documentos encontrados:', documentos);
-    } catch (erro) {
-      console.error('Erro ao consultar documentos:', erro);
-    }
-  }
-
-  // Restante do código...
-
-  // Lembre-se de fechar a conexão quando não precisar mais
-  // fecharConexao();
-
 });
 
 

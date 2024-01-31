@@ -3,14 +3,20 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'poppins';
-  font-size: 30px;
+  font-size: 16px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
 }
 
 .kanban {
   display: flex;
   justify-content: center;
   min-height: 400px;
-  gap: 10px;
+  gap: 15px;
   padding: 10px;
 }
 
@@ -19,15 +25,39 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px;
-  background-color: #4A495A;
-  min-width: 200px;
   border-radius: 5px;
 }
 
+.first-column {
+  background-color: #4A495A;
+  min-width: 200px;
+  max-height: 400px; /* Defina a altura máxima conforme desejado */
+  overflow-y: auto; /* Adiciona uma barra de rolagem vertical, se necessário */
+}
+
+.second-column {
+  background-color: #F5F8FA;
+  overflow-y: auto;
+  max-height: 1000px;
+  flex-grow: 1;
+  width: 50%; /* Ajuste a largura conforme necessário */
+  max-width: 800px; /* Defina uma largura máxima para evitar que a coluna se estenda demais */
+  margin-left: 20px; /* Adicione um espaçamento à esquerda para separar as colunas */
+}
+
 .item {
-  background-color: white;
+  background-color: #6C6B7E;
+  color: white;
   padding: 10px;
   border-radius: 5px;
+  margin-bottom: 5px; /* Adiciona um espaçamento entre os itens */
+  cursor: pointer; /* Altera o cursor para indicar interatividade */
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.item:hover {
+  background-color: #5C5B6E; /* Altera a cor de fundo ao passar o mouse */
+  transform: scale(1.03); /* Aumenta ligeiramente o tamanho ao passar o mouse */
 }
 
 .dragging {
@@ -40,11 +70,18 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px;
+  
   background-color: #F5F8FA; /* Ou a cor desejada */
   border: 1px solid #ccc;
   border-radius: 5px;
-  position: relative; /* Adicione se necessário */
-  z-index: 1000; /* Adicione se necessário */
+  position: relative;
+  z-index: 1000;
+  transition: background-color 0.3s, border-color 0.3s; /* Adiciona transição para a cor de fundo e a cor da borda */
+}
+
+.simple-question-group:hover, .evaluation-group:hover, .radio-group:hover, .observations-group:hover {
+  background-color: #e0e0e0; /* Cor de fundo alterada */
+  border-color: #4A495A; /* Cor da borda alterada */
 }
 
 /* Estilos específicos para os inputs dentro de .simple-question-group */
@@ -54,6 +91,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 
 /*ESTILOS TEXTO */
 
@@ -68,15 +106,14 @@
 /* BOTÕES JAVASCRIPT */
 
 .action-button {
-  width: 19%; /* Defina a largura desejada para os botões */
-  margin-right: 4%; /* Adicione um espaçamento entre os botões, se necessário */
+  width: 100%; /* Ocupa 100% da largura disponível na segunda coluna */
+  margin-top: 10px; /* Adiciona um espaçamento acima do botão */
   padding: 10px;
   background-color: #4A495A;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  display: inline-block;
   box-sizing: border-box;
 }
 
@@ -85,4 +122,134 @@
   margin-right: 0;
 }
 
+.form-title-section {
+  margin-bottom: 20px; /* Adiciona margem inferior para espaçamento */
+}
+
+.form-title-section label {
+  display: block; /* Exibe o rótulo em uma nova linha */
+  margin-bottom: 5px; /* Adiciona margem inferior para espaçamento */
+  font-weight: bold; /* Define negrito para o rótulo */
+}
+
+.form-title-section input[type="text"] {
+  width: 100%; /* Define a largura do campo de entrada como 100% */
+  padding: 10px; /* Adiciona preenchimento interno para espaçamento */
+  border: 1px solid #ccc; /* Adiciona uma borda */
+  border-radius: 5px; /* Adiciona bordas arredondadas */
+  box-sizing: border-box; /* Inclui a borda e o preenchimento na largura total */
+}
+
+.form-title-section input[type="text"]:focus {
+  outline: none; /* Remove o contorno ao focar */
+  border-color: #007bff; /* Altera a cor da borda ao focar */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Adiciona uma sombra ao focar */
+}
+
+/* Estilização dos containers criados quando arrastados */
+.column.second-column .item.dragging {
+  background-color: #F0F0F0; /* Cor de fundo para destacar o container */
+  border: 2px dashed #4A495A; /* Borda pontilhada para indicar área de destino */
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px; /* Espaçamento entre os containers */
+  transition: border-color 0.3s; /* Adiciona transição para a cor da borda */
+}
+
+/* Efeito de realce ao passar o mouse sobre o container */
+
+/* Estilo dos botões nos grupos de perguntas */
+.simple-question-group button,
+.evaluation-group button,
+.radio-group button,
+.observations-group button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4A495A;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Efeito de realce ao passar o mouse sobre os botões */
+.simple-question-group button:hover,
+.evaluation-group button:hover,
+.radio-group button:hover,
+.observations-group button:hover {
+  background-color: #5C5B6E;
+}
+
+/* Feedback visual quando o botão é clicado */
+.simple-question-group button:active,
+.evaluation-group button:active,
+.radio-group button:active,
+.observations-group button:active {
+  transform: scale(0.98);
+}
+
+/* Estilo do botão "Guardar formulário" */
+button#saveFormButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4A495A;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Centralizar o botão */
+button#saveFormButton {
+  display: block;
+  margin: 5px auto; /* Isso centraliza horizontalmente o botão dentro de seu contêiner */
+}
+
+/* Efeito de realce ao passar o mouse sobre o botão */
+button#saveFormButton:hover {
+  background-color: #5C5B6E;
+}
+
+/* Feedback visual quando o botão é clicado */
+button#saveFormButton:active {
+  transform: scale(0.98);
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f0f0;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999; /* Garante que a popup seja exibida na frente de outros elementos */
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.close-popup {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #333;
+}
+
+.close-popup:hover {
+  color: #000;
+}
+
+.popup-message {
+  font-size: 18px;
+  color: #333;
+}
 

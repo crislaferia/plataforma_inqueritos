@@ -1,13 +1,7 @@
-<script>
-    // Redirecionar após 3 segundos
-    setTimeout(function() {
-        window.location.href = 'https://www.cencal.pt';
-    }, 3000);
-</script>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require_once __DIR__ . '/vendor/autoload.php';
-    
+
     // Conectar ao MongoDB
     $client = new MongoDB\Client("mongodb://localhost:27017");
 
@@ -19,18 +13,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Processar e salvar respostas
     $allResponses = [];
 
-    foreach ($_POST['respostas'] as $categoria => $perguntas) {
-        foreach ($perguntas as $pergunta => $resposta) {
+    foreach ($_POST['respostas'] as $key => $value) {
+        // Separar a chave em categoria e pergunta
+        list($categoria, $pergunta) = explode('_', $key);
+
+        // Verificar se a pergunta é de seleção ou texto
+        if (strpos($pergunta, 'question_') === 0) {
+            // Se for uma pergunta de seleção (radio-group, evaluation-group, etc.)
             $allResponses[] = [
                 'categoria' => $categoria,
                 'pergunta' => $pergunta,
-                'resposta' => $resposta,
+                'resposta' => $value,
+            ];
+        } else {
+            // Se for uma pergunta de texto (simple-question-group, observations-group, etc.)
+            $allResponses[] = [
+                'categoria' => $categoria,
+                'pergunta' => $pergunta,
+                'resposta_texto' => $value,
             ];
         }
     }
 
-    // Inserir todas as respostas em um único documento
-    $collectionResponses->insertOne(['responses' => $allResponses]);
+    // Tratar inserção no MongoDB com manipulação de erros
+    try {
+        // Verificar se $allResponses é um array ou objeto antes de usar o foreach
+        if (is_array($allResponses) || is_object($allResponses)) {
+            // Iterar sobre cada resposta e inserir no MongoDB
+            foreach ($allResponses as $response) {
+                $collectionResponses->insertOne(['response' => $response]);
+            }
+
+            echo "Respostas salvas com sucesso!";
+        } else {
+            echo "Erro: As respostas não estão no formato esperado.";
+        }
+    } catch (MongoDB\Driver\Exception\Exception $e) {
+        echo "Erro ao salvar as respostas no MongoDB: " . $e->getMessage();
+    } catch (Exception $e) {
+        // Exibir mensagem de erro
+        echo "Erro ao salvar as respostas no MongoDB: " . $e->getMessage();
+    }
 
     // Exibir mensagem de sucesso
     echo '<!DOCTYPE html>
@@ -56,15 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </section>
                 </div>
             </div>
-
-            
         </body>
         </html>';
-
     exit();
-    
 }
 ?>
-
-
-

@@ -98,39 +98,65 @@
             } else {
                 echo "Erro: Valor de 'id' não está definido na requisição POST.";
             }
-if ($questionarioId) {
-    // Converter o ID para o formato adequado (ObjectID)
-    $questionarioId = new MongoDB\BSON\ObjectID($questionarioId);
 
-    // Consultar o MongoDB para obter o questionário específico
-    $perguntas = $collection->findOne(['_id' => $questionarioId]);
-    // echo "success3";
-    // Verificar se o questionário foi encontrado
-    
-    if ($perguntas) {
-
-        echo '<div class="descricao">';
-        echo '<p>' . $perguntas->descricao . '</p>';
-        echo '</div>';
-            foreach ($perguntas->perguntas as $pergunta) {
-                echo '<div class="pergunta">';
-                echo '<p>' . $pergunta->categoria . ': ' . $pergunta->pergunta . '</p>';
-               
-
-                // Add options for response (assuming they are selection options)
-                foreach ($pergunta->opcoes as $opcao) {
-                    echo '<label class="opcao">';
-                    echo '<input type="radio" name="respostas[' . $pergunta->categoria . '][' . $pergunta->pergunta . ']" value="' . $opcao . '">' . $opcao;
-                    echo '</label>';
+            if ($questionarioId) {
+                // Converter o ID para o formato adequado (ObjectID)
+                $questionarioId = new MongoDB\BSON\ObjectID($questionarioId);
+            
+                // Consultar o MongoDB para obter o questionário específico
+                $documento = $collection->findOne(['_id' => $questionarioId]);
+            
+                // Verificar se o questionário foi encontrado
+                if ($documento) {
+                    // Verificar se os campos esperados estão definidos no documento
+                    if (isset($documento->title)) {
+                        echo '<div class="titulo">';
+                        echo '<p>' . $documento->title . '</p>';
+                        echo '</div>';
+            
+                        foreach ($documento as $key => $question) {
+                            // Verificar se a chave é uma pergunta
+                            if (strpos($key, 'question_') === 0 && isset($question->type)) {
+                                echo '<div class="pergunta">';
+                                echo '<p>' . $question->question . '</p>';
+            
+                                if ($question->type === "simple-question-group") {
+                                    // Adicionar caixa de texto para resposta
+                                    echo '<input type="text" name="respostas[' . $key . ']">';
+                                } elseif ($question->type === "observations-group") {
+                                    // Adicionar caixa de texto para resposta
+                                    echo '<textarea name="respostas[' . $key . ']" rows="4" cols="50"></textarea>';
+                                } elseif ($question->type === "radio-group" || $question->type === "evaluation-group") {
+                                    // Adicionar opções de resposta (radio-group ou evaluation-group)
+                                    foreach ($question->options as $opcao) {
+                                        echo '<label class="opcao">';
+                                        if ($question->type === "radio-group") {
+                                            echo '<input type="radio" name="respostas[' . $key . ']" value="' . $opcao . '">' . $opcao;
+                                        } elseif ($question->type === "evaluation-group") {
+                                            echo '<input type="radio" name="respostas[' . $key . ']" value="' . $opcao . '">' . $opcao;
+                                        }
+                                        echo '</label>';
+                                    }
+                                } else {
+                                    echo "Erro: Tipo de pergunta desconhecido.";
+                                }
+            
+                                echo '</div>';
+                            }
+                        }
+                    } else {
+                        echo "Erro: O documento não possui o campo 'title'.";
+                    }
+                } else {
+                    echo "Formulário não encontrado.";
                 }
-
-                echo '</div>';
+            } else {
+                echo "Valor de 'id' não está definido ou é inválido.";
             }
-        }else {
-            echo "Questionário não encontrado.";
-        }}else {
-            echo "Valor de 'id' não está definido ou é inválido.";
-        }
+            
+            
+
+            
             ?>
             <input type="submit" value="Enviar respostas">
         </form>
