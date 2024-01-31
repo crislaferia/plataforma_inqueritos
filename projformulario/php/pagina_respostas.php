@@ -56,7 +56,7 @@
         </div>
         
         
-        <form class="botao-resposta" action="obrigado.php" method="post">
+        <form class="botao-resposta" action="salvar_resposta.php" method="post">
 
 
 
@@ -113,6 +113,8 @@
                         echo '<div class="titulo">';
                         echo '<p>' . $documento->title . '</p>';
                         echo '</div>';
+
+                        echo '<input type="hidden" name="title" value="' . $documento->title . '">';
             
                         foreach ($documento as $key => $question) {
                             // Verificar se a chave é uma pergunta
