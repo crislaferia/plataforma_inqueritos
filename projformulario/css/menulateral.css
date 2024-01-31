@@ -1,0 +1,70 @@
+/* Estilo personalizado para o accordion */
+#formsAccordion {
+    background-color: #2c2e3e;
+    color: #FFFFFF; /* Cor de fundo do accordion */
+}
+
+.button{
+    background-color: #2c2e3e;
+    border: none;
+    border-bottom: none !important;
+    color: #FFFFFF;
+}
+
+/* Custom style to remove borders from accordion */
+.accordion {
+    border: none; /* Remove border from accordion */
+    background-color: #2c2e3e;
+    color: #FFFFFF;
+}      
+.accordion-button {
+    background-color:#2c2e3e !important; /* Cor do botão do accordion quando não expandido */
+    color: #FFFFFF; /* Cor do texto do botão quando não expandido */
+    border: none; /* Remove border from accordion button */
+    border-bottom: none !important;
+    font-size: 20px;
+}
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.125rem rgba(0, 0, 0, 0); /* Adiciona um efeito de foco ao botão */
+    border: none; 
+    color: #FFFFFF;
+}
+
+.accordion-item {
+    border: none; /* Remove border from accordion item */
+    background-color:  #2c2e3e;
+    color: #FFFFFF;
+}
+
+.accordion-button:hover {
+    /*background-color: #1a1c28; /* Cor do botão do accordion quando hover */
+   /* border: none;*/
+    
+}
+
+.accordion-collapse {
+    border: none; /* Remove border from accordion collapse */
+    background-color: #2c2e3e;
+    color: #FFFFFF;
+}
+ 
+.accordion-header{
+    background-color:  #2c2e3e;
+    border-bottom: none !important;
+    color: #FFFFFF;
+}
+
+.accordion-body {
+    border-top: none; /* Remove top border from accordion body */
+    border-bottom: none !important;
+    border: none;
+    background-color: #2c2e3e; /* Cor de fundo do conteúdo do accordion */
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+
+}
+
+.accordion-button::after{
+    color: #FFFFFF !important; /* Cor da seta do accordion */
+}
