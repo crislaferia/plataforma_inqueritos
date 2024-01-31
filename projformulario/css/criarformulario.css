@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
-  font-size: 16px;
+  /*font-size: 16px;*/
 }
 
 /* body {
@@ -15,7 +15,7 @@
 .kanban {
   display: flex;
   justify-content: center;
-  min-height: 400px;
+  min-height: 380px;
   gap: 15px;
   padding: 10px;
 }

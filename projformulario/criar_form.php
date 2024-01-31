@@ -28,7 +28,7 @@ if (!isset($_SESSION['username'])) {
  
 <body style="overflow: hidden;">
 
-    <header>
+    <header style="font-size: 17px;">
     <?php include ('php/cabecalho.php'); ?>
     </header>
 

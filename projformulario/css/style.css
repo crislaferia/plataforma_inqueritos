@@ -854,7 +854,7 @@ header {
 .sectionhome {
     flex: 1;
     overflow-y: auto;
-    max-height: 445px; /* Define uma altura máxima para a seção, ajuste conforme necessário */
+    max-height: 400px; /* Define uma altura máxima para a seção, ajuste conforme necessário */
     max-width: 800px;
     background-color: #F5F8FA;
     display: flex;
