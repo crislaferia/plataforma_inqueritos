@@ -13,11 +13,11 @@ $options = " ";
 if ($resultado) {
     foreach ($resultado as $documento) {
         $id = isset($documento['_id']) ? $documento['_id'] : '';
-        $descricao = isset($documento['descricao']) ? $documento['descricao'] : '';
+        $title = isset($documento['title']) ? $documento['title'] : '';
 
         $idString = (string) $id;
 
-        $options .= "<option class='form-selector-option' data-id='" . $idString . "' value='" . $idString . "'>" . $descricao . "</option>";
+        $options .= "<option class='form-selector-option' data-id='" . $idString . "' value='" . $idString . "'>" . $title . "</option>";
     }
 }
 ?>
@@ -78,25 +78,41 @@ if ($resultado) {
     function openPopup(url, event) {
     event.preventDefault();
     window.open(url, 'popup', 'width=550px,height=200px');
-}
-function mostrarGrafico(url) {
+    }
+    function mostrarGrafico(url) {
         // Atualiza o conteúdo da div com a imagem do gráfico
         $('#graficoContainer').html('<img src="' + url + '" alt="Gráfico">');
     }
     function mostrarInq(url) {
-    // Faz uma requisição AJAX para obter o conteúdo do arquivo PHP
-    $.ajax({
-        url: url,
-        type: 'GET',
-        success: function(response) {
-            // Atualiza o conteúdo da div com o conteúdo do arquivo PHP
-            $('#graficoContainer').html(response);
-        },
-        error: function() {
-            // Manipula erros, se necessário
-            console.error('Erro ao carregar ' + url);
-        }
-    });
+    // Obtém o valor selecionado no seletor
+    var valorSelecionado = $('#formSelector').val();
+
+    // Verifica se um valor foi selecionado
+    if (valorSelecionado) {
+        // Adiciona o valor do ID à URL
+        url += '?id=' + valorSelecionado;
+
+        // Faz a requisição AJAX para obter o conteúdo do arquivo PHP
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(response) {
+                // Atualiza o conteúdo da div com o conteúdo do arquivo PHP
+                $('#graficoContainer').html(response);
+            },
+            error: function(xhr, status, error) {
+                // Manipula erros, se necessário
+                console.error('Erro ao carregar ' + url);
+                console.log('XHR status:', status);
+                console.log('XHR error:', error);
+            }
+        });
+    } else {
+        console.warn("Nenhum valor selecionado no spinner.");
+    }
 }
+
+
+
 
 </script>

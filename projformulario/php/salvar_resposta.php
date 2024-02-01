@@ -17,10 +17,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['title'])) {
         $allResponses['title'] = $_POST['title'];
     }
+    // Adicionar as perguntas diretamente ao array 'questions'
+    if (isset($_POST['questions']) && is_array($_POST['questions'])) {
+        $allResponses['questions'] = $_POST['questions'];
+    }
 
     // Adicionar as respostas diretamente ao array 'responses'
     foreach ($_POST['respostas'] as $key => $value) {
-        $allResponses['responses'][$key] = $value;
+        $allResponses['responses'][$key]['answer'] = $value;
+        
+        // Obter a pergunta associada ao ID da pergunta
+        $questionId = str_replace('question_', '', $key);
+        if (isset($_POST['questions'][$key])) {
+            $allResponses['responses'][$key]['question'] = $_POST['questions'][$key];
+        }
     }
 
     // Tratar inserção no MongoDB com manipulação de erros

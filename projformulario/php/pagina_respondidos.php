@@ -27,59 +27,52 @@
             
             // Obtém o valor do parâmetro 'id' da URL
             
-            //$idFromURL = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_DEFAULT) : null;
-            $idFromURL= '65b7acab87589c1e5c0f6436';
+            $idFromURL = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_DEFAULT) : null;
+            // Imprimir para fins de depuração
+            //echo "Valor de 'id' recebido: " . $idFromURL;
+            //$idFromURL= '65badad9bd28c4c00d0e94ee';
             // Verifica se o ID foi recebido corretamente
-            if ($idFromURL !== null) {
-                // Use o valor de $idFromURL conforme necessário
-                // echo "ID recebido da URL: " . $idFromURL;
-            } else {
-                echo "ID não foi recebido corretamente da URL.";
-            }
-            
-            
+if ($idFromURL !== null) {
+    // Use o valor de $idFromURL conforme necessário
+    $questionarioId = $idFromURL;
+    //var_dump($questionarioId); // Adicione esta linha para imprimir o valor de $questionarioId
+    // echo "ID recebido da URL: " . $idFromURL;
+} else {
+    echo "ID não foi recebido corretamente da URL.";
+}
 
-            // echo "antes do Valor de id: " . $idFromURL;
-            if ($idFromURL!== null) {
-                
-                $questionarioId = $idFromURL;
+// ...
 
-                // echo "Valor de 'id' recebido com sucesso: " . $questionarioId;
-            } else {
-                echo "Erro: Valor de 'id' não está definido na requisição POST.";
-            }
 if ($questionarioId) {
     // Converter o ID para o formato adequado (ObjectID)
     $questionarioId = new MongoDB\BSON\ObjectID($questionarioId);
 
-// Consultar o MongoDB para obter o questionário específico com respostas
-$resposta = $collection->findOne(['_id' => $questionarioId]);
+    // Consultar o MongoDB para obter o questionário específico com respostas
+    $resposta = $collection->findOne(['_id' => $questionarioId]);
 
-// Adicione esta linha para imprimir a resposta (para fins de depuração)
-// var_dump($resposta);
+    if ($resposta) {
+        // Exibir o documento encontrado
+        //var_dump($resposta);
 
-// Verificar se a resposta foi encontrada
-if ($resposta) {
-    echo '<div class="descricao">';
-    echo '<p>' . ($resposta->descricao ?? '') . '</p>';
-    echo '</div>';
-
-   // Verificar se o campo 'responses' existe e é um array
-if (property_exists($resposta, 'responses') && is_array($resposta->responses->getArrayCopy())) {
-    // Exibir perguntas e respostas associadas
-    foreach ($resposta->responses->getArrayCopy() as $pergunta) {
-        echo '<div class="pergunta">';
-        echo '<p>' . ($pergunta->categoria ?? '') . ': ' . ($pergunta->pergunta ?? '') . '</p>';
-
-        // Verificar e exibir a resposta
-        echo 'Resposta: ' . ($pergunta->resposta ?? 'Não disponível');
-
+        echo '<div class="title">';
+        echo '<p>' . ($resposta->title ?? '') . '</p>';
         echo '</div>';
+
+        // Verificar se 'responses' é uma instância de MongoDB\Model\BSONDocument
+        if ($resposta->responses instanceof MongoDB\Model\BSONDocument) {
+            // Exibir perguntas e respostas associadas
+            foreach ($resposta->responses as $pergunta => $resposta) {
+                echo '<div class="pergunta">';
+                echo '<p>Pergunta: ' . $pergunta . '</p>';
+                echo '<p>Resposta: ' . $resposta . '</p>';
+                echo '</div>';
+            }
+        } else {
+            echo "O campo 'responses' não está definido ou não é um objeto BSONDocument.";
+        }
+    } else {
+        echo "Não foi possível encontrar a resposta para o ID especificado.";
     }
-} else {
-    echo "O campo 'responses' não está definido ou não é um array.";
-}
-}
 }
             ?>
             

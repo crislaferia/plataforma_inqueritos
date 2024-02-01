@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const columns = document.querySelectorAll('.column');
   const items = document.querySelectorAll('.item');
-  const saveFormButton = document.querySelector('button');
+  const saveFormButton = document.getElementById('saveFormButton');
   const popup = document.getElementById('popup');
   const closePopupButton = document.getElementById('close-popup');
   saveFormButton.style.display = 'none';
@@ -503,7 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
         delete questionData.options;
       }
 
-      formData[`${index + 1}:`] = questionData;
+      formData[`${index + 1}`] = questionData;
     });
 
     const jsonData = JSON.stringify(formData, null, 2);

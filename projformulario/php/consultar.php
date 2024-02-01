@@ -13,11 +13,11 @@ $options = " ";
 if ($resultado) {
     foreach ($resultado as $documento) {
         $id = isset($documento['_id']) ? $documento['_id'] : '';
-        $descricao = isset($documento['descricao']) ? $documento['descricao'] : '';
+        $title = isset($documento['title']) ? $documento['title'] : '';
 
         $idString = (string) $id;
 
-        $options .= "<option class='form-selector-option' data-id='" . $idString . "' value='" . $idString . "'>" . $descricao . "</option>";
+        $options .= "<option class='form-selector-option' data-id='" . $idString . "' value='" . $idString . "'>" . $title . "</option>";
     }
 }
 ?>

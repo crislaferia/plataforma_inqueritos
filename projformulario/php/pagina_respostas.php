@@ -38,6 +38,10 @@
         .opcao {
             margin-right: 10px;
         }
+
+        textarea {
+            resize: none;
+        }
     </style>
 </head>
 
@@ -124,7 +128,7 @@
             
                                 if ($question->type === "simple-question-group") {
                                     // Adicionar caixa de texto para resposta
-                                    echo '<input type="text" name="respostas[' . $key . ']">';
+                                    echo '<textarea name="respostas[' . $key . ']" rows="4" cols="50"></textarea>';
                                 } elseif ($question->type === "observations-group") {
                                     // Adicionar caixa de texto para resposta
                                     echo '<textarea name="respostas[' . $key . ']" rows="4" cols="50"></textarea>';

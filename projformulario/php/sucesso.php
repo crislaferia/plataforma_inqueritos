@@ -24,5 +24,11 @@
                 </section>
             </div>
         </div>
+        <script>
+    setTimeout(function() {
+        window.location.href = "https://www.cencal.pt";
+    }, 2000); 
+</script>
+
     </body>
     </html>;
