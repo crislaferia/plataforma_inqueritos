@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const columns = document.querySelectorAll('.column');
   const items = document.querySelectorAll('.item');
-  const saveFormButton = document.querySelector('button');
+  const saveFormButton = document.getElementById('saveFormButton');
   const popup = document.getElementById('popup');
   const closePopupButton = document.getElementById('close-popup');
   saveFormButton.style.display = 'none';
@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Adicione o evento de clique ao botão de salvar
-  const saveButton = document.querySelector('button');
+  const saveButton = document.getElementById('saveFormButton');
   saveButton.addEventListener('click', saveFormAndConvertToJSON);
 
   function saveFormAndConvertToJSON() {
