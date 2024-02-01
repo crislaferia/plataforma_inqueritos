@@ -17,35 +17,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['title'])) {
         $allResponses['title'] = $_POST['title'];
     }
-    // Adicionar as perguntas diretamente ao array 'questions'
-    if (isset($_POST['questions']) && is_array($_POST['questions'])) {
-        $allResponses['questions'] = $_POST['questions'];
-    }
 
-    // Adicionar as respostas diretamente ao array 'responses'
+    // Adicionar as perguntas e respostas diretamente ao array 'responses'
     foreach ($_POST['respostas'] as $key => $value) {
-        $allResponses['responses'][$key]['answer'] = $value;
-        
-        // Obter a pergunta associada ao ID da pergunta
-        $questionId = str_replace('question_', '', $key);
-        if (isset($_POST['questions'][$key])) {
-            $allResponses['responses'][$key]['question'] = $_POST['questions'][$key];
-        }
+        $questionId = $key; // remova o ':' aqui
+        $allResponses['responses'][$questionId]['question'] = $_POST['questions'][$key];
+        $allResponses['responses'][$questionId]['answer'] = $value;
     }
 
     // Tratar inserção no MongoDB com manipulação de erros
     try {
-        // Verificar se $allResponses é um array ou objeto antes de usar o foreach
-        if (is_array($allResponses) || is_object($allResponses)) {
-            // Inserir todas as respostas no MongoDB como um único documento
-            $collectionResponses->insertOne($allResponses);
+        // Inserir todas as respostas no MongoDB como um único documento
+        $collectionResponses->insertOne($allResponses);
 
-            // Redirecionar para uma página de sucesso após salvar no MongoDB
-            header("Location: sucesso.php");
-            exit();
-        } else {
-            echo "Erro: As respostas não estão no formato esperado.";
-        }
+        // Redirecionar para uma página de sucesso após salvar no MongoDB
+        header("Location: sucesso.php");
+        exit();
     } catch (MongoDB\Driver\Exception\Exception $e) {
         echo "Erro ao salvar as respostas no MongoDB: " . $e->getMessage();
     } catch (Exception $e) {

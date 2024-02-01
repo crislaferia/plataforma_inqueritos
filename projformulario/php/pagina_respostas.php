@@ -117,19 +117,17 @@
                         echo '<div class="titulo">';
                         echo '<p>' . $documento->title . '</p>';
                         echo '</div>';
-
+                
                         echo '<input type="hidden" name="title" value="' . $documento->title . '">';
-            
+                
                         foreach ($documento as $key => $question) {
                             // Verificar se a chave é uma pergunta
-                            if (strpos($key, 'question_') === 0 && isset($question->type)) {
+                            if (isset($question->type)) {
                                 echo '<div class="pergunta">';
                                 echo '<p>' . $question->question . '</p>';
-            
-                                if ($question->type === "simple-question-group") {
-                                    // Adicionar caixa de texto para resposta
-                                    echo '<textarea name="respostas[' . $key . ']" rows="4" cols="50"></textarea>';
-                                } elseif ($question->type === "observations-group") {
+                                echo '<input type="hidden" name="questions[' . $key . ']" value="' . $question->question . '">';
+                
+                                if ($question->type === "simple-question-group" || $question->type === "observations-group") {
                                     // Adicionar caixa de texto para resposta
                                     echo '<textarea name="respostas[' . $key . ']" rows="4" cols="50"></textarea>';
                                 } elseif ($question->type === "radio-group" || $question->type === "evaluation-group") {
@@ -146,7 +144,7 @@
                                 } else {
                                     echo "Erro: Tipo de pergunta desconhecido.";
                                 }
-            
+                
                                 echo '</div>';
                             }
                         }
@@ -156,10 +154,7 @@
                 } else {
                     echo "Formulário não encontrado.";
                 }
-            } else {
-                echo "Valor de 'id' não está definido ou é inválido.";
             }
-            
             
 
             
