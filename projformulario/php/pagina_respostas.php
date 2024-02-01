@@ -115,7 +115,7 @@
                     // Verificar se os campos esperados estão definidos no documento
                     if (isset($documento->title)) {
                         echo '<div class="titulo">';
-                        echo '<p>' . $documento->title . '</p>';
+                        echo '<h2>' . $documento->title . '</h2>';
                         echo '</div>';
                 
                         echo '<input type="hidden" name="title" value="' . $documento->title . '">';
@@ -127,10 +127,14 @@
                                 echo '<p>' . $question->question . '</p>';
                                 echo '<input type="hidden" name="questions[' . $key . ']" value="' . $question->question . '">';
                 
-                                if ($question->type === "simple-question-group" || $question->type === "observations-group") {
+                                if ($question->type === "simple-question-group") {
                                     // Adicionar caixa de texto para resposta
-                                    echo '<textarea name="respostas[' . $key . ']" rows="4" cols="50"></textarea>';
-                                } elseif ($question->type === "radio-group" || $question->type === "evaluation-group") {
+                                    echo '<textarea name="respostas[' . $key . ']" rows="4" cols="50" placeholder="Digite sua resposta aqui..."></textarea>';
+                                }elseif($question->type === "observations-group"){
+                                    echo '<p>Observações</p>';
+                                    echo '<textarea name="respostas[' . $key . ']" rows="4" cols="50" placeholder="Se tiver alguma Sugestão/Observação escreva neste campo."></textarea>';
+                                } 
+                                elseif ($question->type === "radio-group" || $question->type === "evaluation-group") {
                                     // Adicionar opções de resposta (radio-group ou evaluation-group)
                                     foreach ($question->options as $opcao) {
                                         echo '<label class="opcao">';
