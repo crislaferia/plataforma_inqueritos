@@ -13,8 +13,9 @@
     <div class="column first-column">
       <div class="item" draggable="true">Botões de escolha</div>
       <div class="item" draggable="true">Pergunta simples</div>
-      <div class="item" draggable="true">Pontuacao</div>
+      <div class="item" draggable="true">Pontuação</div>
       <div class="item" draggable="true">Observações</div>
+      <div class="item lastButton" id="clearFormButton" draggable="true">Novo formulário</div>
     </div>
     <div class="column second-column">
       <div class="form-title-section">

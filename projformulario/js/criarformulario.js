@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const saveFormButton = document.getElementById('saveFormButton');
   const popup = document.getElementById('popup');
   const closePopupButton = document.getElementById('close-popup');
+  const clearFormButton = document.getElementById('clearFormButton');
   saveFormButton.style.display = 'none';
+  clearFormButton.style.display = 'none';
   let meuTexto = '';
   const perguntasPorContainer = {};
   let draggedItem = null;
@@ -31,11 +33,71 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     popup.style.display = 'block';
+
+    clearFormButton.style.display = 'block';
   });
 
   closePopupButton.addEventListener('click', () => {
     popup.style.display = 'none';
   });
+
+  clearFormButton.addEventListener('click', () => {
+    // Aqui você pode adicionar lógica para limpar o formulário
+    // Por exemplo, resetar os campos, remover elementos adicionados dinamicamente, etc.
+    console.log('Formulário limpo');
+    // Após limpar o formulário, oculte o botão de limpar formulário novamente
+    clearFormButton.style.display = 'none';
+  });
+
+  const novoFormulario = document.querySelector('.item:last-child'); // Seleciona o último item na primeira coluna
+  novoFormulario.style.display = 'none'; // Oculta o botão "Novo formulário" inicialmente
+  novoFormulario.addEventListener('click', () => {
+    // Limpa ou redefine o estado do formulário
+    clearForm();
+    // Oculta o botão "Limpar formulário" novamente
+    clearFormButton.style.display = 'none';
+  });
+
+  function clearForm() {
+
+    const secondColumnFormElements = document.querySelectorAll('.second-column input, .second-column textarea');
+    secondColumnFormElements.forEach(element => {
+        if (element.type === 'checkbox' || element.type === 'radio') {
+            element.checked = false;
+        } else {
+            element.value = '';
+        }
+    });
+    // Seleciona os containers de perguntas específicos dentro da div com id "contentor"
+    const radioContainers = document.querySelectorAll('#contentor .radio-group');
+    const simpleQuestionContainers = document.querySelectorAll('#contentor .simple-question-group');
+    const evaluationContainers = document.querySelectorAll('#contentor .evaluation-group');
+    const observationsContainers = document.querySelectorAll('#contentor .observations-group');
+
+    // Remove os containers de cada tipo
+    radioContainers.forEach(container => {
+        removeRadioGroup(container.dataset.id);
+    });
+
+    simpleQuestionContainers.forEach(container => {
+        removeRadioGroup(container.dataset.id);
+    });
+
+    evaluationContainers.forEach(container => {
+        removeRadioGroup(container.dataset.id);
+    });
+
+    observationsContainers.forEach(container => {
+        removeRadioGroup(container.dataset.id);
+    });
+
+    console.log('Formulário reiniciado');
+    saveFormButton.style.display = 'none';
+
+}
+
+
+
 
 
 
@@ -189,9 +251,9 @@ document.addEventListener('DOMContentLoaded', () => {
     removeButton.classList.add('action-button');
     
     const svgMinusImage = document.createElement('img');
-    svgMinusImage.src = '../resources/minus-small-white.svg'; // Substitua '../resources/seu-svg.svg' pelo caminho correto
-    svgMinusImage.width = '10'; // Defina a largura desejada
-    svgMinusImage.height = '10'; // Defina a altura desejada
+    svgMinusImage.src = 'resources/minus-small-white.svg'; 
+    svgMinusImage.width = '10'; 
+    svgMinusImage.height = '10'; 
 
 // Adicionando o SVG ao botão
     removeButton.appendChild(svgMinusImage);
@@ -204,11 +266,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     removeButton.addEventListener('mouseenter', () => {
-      removeButton.style.backgroundColor = '#ffd166'; // Altere a cor para a tonalidade desejada ao passar o mouse
+      removeButton.style.backgroundColor = '#ffd166'; 
     });
     
     removeButton.addEventListener('mouseleave', () => {
-      removeButton.style.backgroundColor = ''; // Remove a cor de fundo definida no hover
+      removeButton.style.backgroundColor = ''; 
     });
     removeButton.addEventListener('click', () => {
       const lastOption = radioGroup.lastChild;
@@ -236,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Criando um elemento <img> para o SVG
     const svgImage = document.createElement('img');
-    svgImage.src = '../resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
+    svgImage.src = 'resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
     svgImage.width = '10';
     svgImage.height = '10';
 
@@ -358,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
     removeContainerButton.classList.add('delete-button');
     removeContainerButton.style.alignSelf = 'flex-end';
     const svgImage = document.createElement('img');
-    svgImage.src = '../resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
+    svgImage.src = 'resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
     svgImage.width = '10';
     svgImage.height = '10';
 
@@ -461,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
     removeContainerButton.classList.add('delete-button');
     removeContainerButton.style.alignSelf = 'flex-end';
     const svgImage = document.createElement('img');
-    svgImage.src = '../resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
+    svgImage.src = 'resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
     svgImage.width = '10';
     svgImage.height = '10';
 
@@ -532,7 +594,7 @@ document.addEventListener('DOMContentLoaded', () => {
     removeContainerButton.classList.add('delete-button');
     removeContainerButton.style.alignSelf = 'flex-end';
     const svgImage = document.createElement('img');
-    svgImage.src = '../resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
+    svgImage.src = 'resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
     svgImage.width = '10';
     svgImage.height = '10';
 
@@ -625,7 +687,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       //Verifica se a pergunta é de caracter obrigatório
-      questionData.required = isRequired;
+      //questionData.required = isRequired;
 
       if (questionData.type === 'radio-group') {
         const radioButtons = question.querySelectorAll('input[type="radio"]');

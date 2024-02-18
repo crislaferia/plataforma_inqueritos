@@ -6,18 +6,18 @@
   font-size: 16px;
 }
 
-body {
+/*body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
   margin: 0;
   padding: 20px;
   max-width: 600px;
 }
-
+*/
 .kanban {
   display: flex;
   justify-content: center;
-  min-height: 400px;
+  min-height: 300px;
   max-width: 600px;
   gap: 15px;
   padding: 10px;
@@ -211,7 +211,7 @@ button#saveFormButton {
 
 /* Efeito de realce ao passar o mouse sobre o botão */
 button#saveFormButton:hover {
-  background-color: #5C5B6E;
+  background-color: #FF9814;
 }
 
 /* Feedback visual quando o botão é clicado */
@@ -270,5 +270,12 @@ button#saveFormButton:active {
   order: 9999; /* Valor alto para garantir que os botões sempre apareçam no final */
 }
 
+.lastButton {
+  margin-top: auto; /* Empurra o botão para a parte inferior da coluna */
+  background-color: #19B394;
+}
 
+.lastButton:hover {
+  background-color: #FF9814;
+}
 
