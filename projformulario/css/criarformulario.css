@@ -2,20 +2,23 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  /*font-size: 16px;*/
+  font-family: 'poppins';
+  font-size: 16px;
 }
 
-/* body {
+body {
   font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
   margin: 0;
   padding: 20px;
-} */
+  max-width: 600px;
+}
 
 .kanban {
   display: flex;
   justify-content: center;
-  min-height: 380px;
+  min-height: 400px;
+  max-width: 600px;
   gap: 15px;
   padding: 10px;
 }
@@ -30,7 +33,7 @@
 
 .first-column {
   background-color: #4A495A;
-  min-width: 200px;
+  min-width: 40px;
   max-height: 400px; /* Defina a altura máxima conforme desejado */
   overflow-y: auto; /* Adiciona uma barra de rolagem vertical, se necessário */
 }
@@ -41,7 +44,7 @@
   max-height: 1000px;
   flex-grow: 1;
   width: 50%; /* Ajuste a largura conforme necessário */
-  max-width: 800px; /* Defina uma largura máxima para evitar que a coluna se estenda demais */
+  max-width: 500px; /* Defina uma largura máxima para evitar que a coluna se estenda demais */
   margin-left: 20px; /* Adicione um espaçamento à esquerda para separar as colunas */
 }
 
@@ -107,8 +110,7 @@
 
 .action-button {
   width: 100%; /* Ocupa 100% da largura disponível na segunda coluna */
-  margin-top: 10px; /* Adiciona um espaçamento acima do botão */
-  padding: 10px;
+  
   background-color: #4A495A;
   color: white;
   border: none;
@@ -252,4 +254,21 @@ button#saveFormButton:active {
   font-size: 18px;
   color: #333;
 }
+
+.action-button, .delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons-container button {
+  order: 9999; /* Valor alto para garantir que os botões sempre apareçam no final */
+}
+
+
 

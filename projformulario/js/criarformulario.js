@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let meuTexto = '';
   const perguntasPorContainer = {};
   let draggedItem = null;
+  let isRequired = true;
   let originalIndex = null;
   let formTitle = '';
   let containerCreated = false;
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         (column.classList.contains('second-column') && draggable && draggedItem.textContent === 'Pergunta simples') {
         createSimpleQuestionGroup(column.querySelector('.radio-group-container'));
         containerCreated = true;
-      } else if (column.classList.contains('second-column') && draggable && draggedItem.textContent === 'Pontuacao') {
+      } else if (column.classList.contains('second-column') && draggable && draggedItem.textContent === 'Pontuação') {
         createEvaluationGroup(column.querySelector('.radio-group-container'));
         containerCreated = true;
       } else if (column.classList.contains('second-column') && draggable && draggedItem.textContent === 'Observações') {
@@ -143,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     textInput.type = 'text';
     textInput.classList.add('question-input');
     textInput.placeholder = 'Digite sua pergunta';
+    textInput.style.height = '40px';
 
     //ADICIONAR TEXTO DA PERGUNTA PARA CAMBIO C/GUARDAR 
 
@@ -158,25 +160,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonsContainer = document.createElement('div');
     buttonsContainer.style.display = 'flex';
     buttonsContainer.style.alignItems = 'center';
+    buttonsContainer.style.justifyContent = 'flex-end';
+    buttonsContainer.style.order = '9999';
 
     const addButton = document.createElement('button');
     addButton.classList.add('action-button');
     addButton.textContent = '+';
-    addButton.style.width = '50px';
-    addButton.style.height = '50px';
+    addButton.style.fontSize= '15px';
+    addButton.style.width = '20px';
+    addButton.style.height = '20px';
     addButton.style.marginRight = '20px'; // Adiciona um espaçamento à direita do botão
+    addButton.addEventListener('mouseenter', () => {
+      addButton.style.backgroundColor = '#06d6a0'; // Altere a cor para a tonalidade desejada ao passar o mouse
+    });
+    
+    addButton.addEventListener('mouseleave', () => {
+      addButton.style.backgroundColor = ''; // Remove a cor de fundo definida no hover
+    });
     addButton.addEventListener('click', () => {
       const newOption = createRadioButton('Nova Opção');
       radioGroup.appendChild(newOption);
       updateRemoveButtonVisibility();
     });
 
+    
+
     const removeButton = document.createElement('button');
     removeButton.classList.add('action-button');
-    removeButton.textContent = '-';
-    removeButton.style.width = '50px';
-    removeButton.style.height = '50px';
+    
+    const svgMinusImage = document.createElement('img');
+    svgMinusImage.src = '../resources/minus-small-white.svg'; // Substitua '../resources/seu-svg.svg' pelo caminho correto
+    svgMinusImage.width = '10'; // Defina a largura desejada
+    svgMinusImage.height = '10'; // Defina a altura desejada
+
+// Adicionando o SVG ao botão
+    removeButton.appendChild(svgMinusImage);
+
+        // Definindo estilos
+    removeButton.style.fontSize = '10px';
+    removeButton.style.width = '20px';
+    removeButton.style.height = '20px';
     removeButton.style.marginRight = '20px';
+
+
+    removeButton.addEventListener('mouseenter', () => {
+      removeButton.style.backgroundColor = '#ffd166'; // Altere a cor para a tonalidade desejada ao passar o mouse
+    });
+    
+    removeButton.addEventListener('mouseleave', () => {
+      removeButton.style.backgroundColor = ''; // Remove a cor de fundo definida no hover
+    });
     removeButton.addEventListener('click', () => {
       const lastOption = radioGroup.lastChild;
       if (lastOption) {
@@ -185,12 +218,43 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    //BOTÃO REQUIRED
+/*
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = 'Obrigatória';
+    toggleButton.classList.add('toggle-button');
+    
+
+    toggleButton.addEventListener('click', () => {
+      isRequired = !isRequired; // Alternar entre obrigatório e opcional
+      toggleButton.textContent = isRequired ? 'Obrigatória' : 'Opcional'; // Atualizar o texto do botão
+      container.dataset.required = isRequired.toString();
+  });
+*/
     const removeContainerButton = document.createElement('button');
     removeContainerButton.classList.add('delete-button');
-    removeContainerButton.textContent = 'Apagar Pergunta';
-    removeContainerButton.style.fontSize = '16px';
-    removeContainerButton.style.width = '200px';
-    removeContainerButton.style.height = '50px';
+
+    // Criando um elemento <img> para o SVG
+    const svgImage = document.createElement('img');
+    svgImage.src = '../resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
+    svgImage.width = '10';
+    svgImage.height = '10';
+
+    // Adicionando o SVG ao botão
+    removeContainerButton.appendChild(svgImage);
+
+    // Definindo estilos
+    removeContainerButton.style.fontSize = '10px';
+    removeContainerButton.style.width = '20px';
+    removeContainerButton.style.height = '20px';
+
+    removeContainerButton.addEventListener('mouseenter', () => {
+      removeContainerButton.style.backgroundColor = '#ef476f'; // Altere a cor para a tonalidade desejada ao passar o mouse
+    });
+    
+    removeContainerButton.addEventListener('mouseleave', () => {
+      removeContainerButton.style.backgroundColor = ''; // Remove a cor de fundo definida no hover
+    });
     removeContainerButton.addEventListener('click', () => {
       removeRadioGroup(containerId); // Chama removeRadioGroup com o identificador único
     });
@@ -202,14 +266,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     radioGroup.appendChild(textInput);
     radioGroup.appendChild(buttonsContainer);
-
+    //radioGroup.appendChild(toggleButton);
     for (let i = 1; i <= 4; i++) {
       const newOption = createRadioButton(`Opção ${i}`);
       radioGroup.appendChild(newOption);
     }
 
+    
     container.appendChild(radioGroup);
-
+    
     // controlar botão '-' para que não se possa eliminar menos de 1 radio button
     function updateRemoveButtonVisibility() {
       removeButton.style.display = radioGroup.children.length > 3 ? 'block' : 'none';
@@ -278,19 +343,50 @@ document.addEventListener('DOMContentLoaded', () => {
       perguntasPorContainer[containerId] = textInput1.value;
       console.log('Texto digitado:', perguntasPorContainer);
     });
+/*
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = 'Obrigatória';
+    toggleButton.classList.add('toggle-button');
 
+    toggleButton.addEventListener('click', () => {
+      isRequired = !isRequired; // Alternar entre obrigatório e opcional
+      toggleButton.textContent = isRequired ? 'Obrigatória' : 'Opcional'; // Atualizar o texto do botão
+      container.dataset.required = isRequired.toString();
+  });
+*/
     const removeContainerButton = document.createElement('button');
     removeContainerButton.classList.add('delete-button');
-    removeContainerButton.textContent = 'Apagar Pergunta';
-    removeContainerButton.style.fontSize = '16px';
-    removeContainerButton.style.width = '200px';
-    removeContainerButton.style.height = '50px';
+    removeContainerButton.style.alignSelf = 'flex-end';
+    const svgImage = document.createElement('img');
+    svgImage.src = '../resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
+    svgImage.width = '10';
+    svgImage.height = '10';
+
+    // Adicionando o SVG ao botão
+    removeContainerButton.appendChild(svgImage);
+
+    // Definindo estilos
+    removeContainerButton.style.fontSize = '10px';
+    removeContainerButton.style.width = '20px';
+    removeContainerButton.style.height = '20px';
+
+    removeContainerButton.addEventListener('mouseenter', () => {
+      removeContainerButton.style.backgroundColor = '#ef476f'; // Altere a cor para a tonalidade desejada ao passar o mouse
+    });
+    
+    removeContainerButton.addEventListener('mouseleave', () => {
+      removeContainerButton.style.backgroundColor = ''; // Remove a cor de fundo definida no hover
+    });
+
     removeContainerButton.addEventListener('click', () => {
       removeSimpleQuestionGroup(containerId);
     });
 
+    
+
     simpleQuestionGroup.appendChild(textInput1);
     simpleQuestionGroup.appendChild(textInput2);
+    //simpleQuestionGroup.appendChild(toggleButton);
     simpleQuestionGroup.appendChild(removeContainerButton);
 
     container.appendChild(simpleQuestionGroup);
@@ -348,17 +444,49 @@ document.addEventListener('DOMContentLoaded', () => {
       evaluationGroup.appendChild(labelElement);
     }
 
+    /*
+    //BOTÃO TOGGLE
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = 'Obrigatória';
+    toggleButton.classList.add('toggle-button');
+    
+
+    toggleButton.addEventListener('click', () => {
+      isRequired = !isRequired; // Alternar entre obrigatório e opcional
+      toggleButton.textContent = isRequired ? 'Obrigatória' : 'Opcional'; // Atualizar o texto do botão
+      container.dataset.required = isRequired.toString();
+  });
+*/
     const removeContainerButton = document.createElement('button');
     removeContainerButton.classList.add('delete-button');
-    removeContainerButton.textContent = 'Apagar Pergunta';
-    removeContainerButton.style.fontSize = '16px';
-    removeContainerButton.style.width = '200px';
-    removeContainerButton.style.height = '50px';
+    removeContainerButton.style.alignSelf = 'flex-end';
+    const svgImage = document.createElement('img');
+    svgImage.src = '../resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
+    svgImage.width = '10';
+    svgImage.height = '10';
+
+    // Adicionando o SVG ao botão
+    removeContainerButton.appendChild(svgImage);
+
+    // Definindo estilos
+    removeContainerButton.style.fontSize = '10px';
+    removeContainerButton.style.width = '20px';
+    removeContainerButton.style.height = '20px';
+
+    removeContainerButton.addEventListener('mouseenter', () => {
+      removeContainerButton.style.backgroundColor = '#ef476f'; // Altere a cor para a tonalidade desejada ao passar o mouse
+    });
+    
+    removeContainerButton.addEventListener('mouseleave', () => {
+      removeContainerButton.style.backgroundColor = ''; // Remove a cor de fundo definida no hover
+    });
     removeContainerButton.addEventListener('click', () => {
       removeEvaluationGroup(containerId);
     });
 
+   // evaluationGroup.appendChild(toggleButton);
     evaluationGroup.appendChild(removeContainerButton);
+   
 
     container.appendChild(evaluationGroup);
   }
@@ -382,6 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const observationsText = createQuestionText('Observações');
     observationsText.contentEditable = true; // Torna o conteúdo editável
+    observationsText.style.maxWidth = '150px';
     observationsGroup.appendChild(observationsText)
     observationsText.classList.add('text-editable')
     observationsGroup.width = '90%';
@@ -401,10 +530,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const removeContainerButton = document.createElement('button');
     removeContainerButton.classList.add('delete-button');
-    removeContainerButton.textContent = 'Apagar Pergunta';
-    removeContainerButton.style.fontSize = '16px';
-    removeContainerButton.style.width = '200px';
-    removeContainerButton.style.height = '50px';
+    removeContainerButton.style.alignSelf = 'flex-end';
+    const svgImage = document.createElement('img');
+    svgImage.src = '../resources/trash-white.svg'; // Substitua 'seu-svg.svg' pelo nome do seu arquivo SVG
+    svgImage.width = '10';
+    svgImage.height = '10';
+
+    // Adicionando o SVG ao botão
+    removeContainerButton.appendChild(svgImage);
+
+    // Definindo estilos
+    removeContainerButton.style.fontSize = '10px';
+    removeContainerButton.style.width = '20px';
+    removeContainerButton.style.height = '20px';
+
+    removeContainerButton.addEventListener('mouseenter', () => {
+      removeContainerButton.style.backgroundColor = '#ef476f'; // Altere a cor para a tonalidade desejada ao passar o mouse
+    });
+    
+    removeContainerButton.addEventListener('mouseleave', () => {
+      removeContainerButton.style.backgroundColor = ''; // Remove a cor de fundo definida no hover
+    });
     removeContainerButton.addEventListener('click', () => {
       removeObservationsGroup(containerId);
     });
@@ -478,6 +624,9 @@ document.addEventListener('DOMContentLoaded', () => {
         reply: [null]
       };
 
+      //Verifica se a pergunta é de caracter obrigatório
+      questionData.required = isRequired;
+
       if (questionData.type === 'radio-group') {
         const radioButtons = question.querySelectorAll('input[type="radio"]');
         radioButtons.forEach((radioButton) => {
@@ -497,6 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (questionData.type === 'observations-group') {
         delete questionData.options;
+        delete questionData.question;
       }
 
       if (questionData.type === 'simple-question-group') {
@@ -513,7 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fazer solicitação POST para o script PHP
 
 
-    
+    /*
     fetch('php/saveForm.php', {
       method: 'POST',
       headers: {
@@ -530,8 +680,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Erro ao salvar questionário:', error);
         // Lide com o erro de alguma forma apropriada para o seu aplicativo
       });
-
-      
+      */
   }
 
   // Adicione o evento de clique ao botão de salvar
