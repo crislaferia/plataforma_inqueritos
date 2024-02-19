@@ -21,6 +21,7 @@ if (!isset($_SESSION['username'])) {
     <link rel="stylesheet" href="css/menulateral.css" />
 
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
     <style>
        
     </style>
@@ -38,7 +39,7 @@ if (!isset($_SESSION['username'])) {
         <?php include ('php/menuLateral.php'); ?>
         </nav>
 
-        <section class="sectionhome" style="overflow: hidden;">
+        <section class="sectionhome" style=" max-width:70%">
         <?php include ('php/criarformulario.php'); ?>
         </section>
     </div>

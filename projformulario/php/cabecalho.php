@@ -19,8 +19,10 @@
         }*/ //verificar quem é utilizador
 
         echo "<a class='link-dir' href='php/logout.php'>Sair</a>";
+        echo "<a class='link-dir'  href='php/sobre.php'>Sobre</a>";
     } else {
         echo "<a class='link-dir' href='loginadmin.php'>Login</a>";
     }
     ?>
 </div>
+

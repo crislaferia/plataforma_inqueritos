@@ -21,7 +21,12 @@ if ($resultado) {
     }
 }
 ?>
-
+<!-- Incluindo o Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Incluindo o DataTables e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 <!-- Seu código HTML/PHP continua aqui -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -48,6 +53,9 @@ if ($resultado) {
             <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="#" onclick="openPopup('php/pagina_graficos.php', event)">Abrir Gráfico</a></li>
             <li><a class="dropdown-item" href="#" onclick="mostrarGrafico('php/pagina_graficos.php')">Visualizar Gráfico</a></li>
+            <li><a class="dropdown-item" href="#" onclick="window.open('php/chartjs.php')">Visualizar Grafico/Tabela</a></li>
+            <li><a class="dropdown-item" href="#" onclick="window.open('php/tabelaDados.php')">Visualizar Tabela de Dados</a></li>
+
             <li><a class="dropdown-item" href="#" onclick="mostrarInq('php/pagina_respondidos.php')">Visualizar Respondido</a></li>
 
                 <li><hr class="dropdown-divider"></li>

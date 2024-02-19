@@ -35,7 +35,7 @@ if (!isset($_SESSION['username'])) {
         <?php include ('php/menuLateral.php'); ?>
         </nav>
 
-        <section class="sectionhome">
+        <section class="sectionhome" style=" max-width:70%";>
         <?php include ('php/consultar.php'); ?>
         </section>
     </div>

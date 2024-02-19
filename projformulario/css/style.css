@@ -855,7 +855,7 @@ header {
     flex: 1;
     overflow-y: auto;
     max-height: 400px; /* Define uma altura máxima para a seção, ajuste conforme necessário */
-    max-width: 800px;
+    max-width: 70% !important;
     background-color: #F5F8FA;
     display: flex;
     flex-direction: column;
@@ -877,3 +877,18 @@ footer {
   margin-right: 30px;
   font-size: 17px;
 }
+
+
+.button2 {
+  background-color: #455e6f;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+

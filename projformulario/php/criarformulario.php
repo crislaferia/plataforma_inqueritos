@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Criar Projeto</title>
 
-  <link rel="stylesheet" href="css/criarformulario.css" />
+  <link rel="stylesheet" href="../css/criarformulario.css" />
 </head>
 <body>
   <div class="kanban">
@@ -18,10 +18,11 @@
       <div class="item lastButton" id="clearFormButton" draggable="true">Novo formulário</div>
     </div>
     <div class="column second-column">
-      <div class="form-title-section">
-        <label style="color: black;" class="label" for="form-title" style="color: #F5F8FA;">Título do Formulário: </label>
+    <div class="form-title-section">
+    <label style="color: black;" class="label" for="form-title" style="color: #F5F8FA;">Título do Formulário: </label>
         <input type="text" id="form-title" placeholder="Insira o título do formulário">
       </div>
+
       <div id="contentor">
         <div class="radio-group-container"></div>
         <button id="saveFormButton">Guardar formulário</button>
@@ -31,7 +32,6 @@
             <p class="popup-message">Formulário guardado com sucesso!</p>
           </div>
         </div>
-        
       </div>
     </div>   
   </div>

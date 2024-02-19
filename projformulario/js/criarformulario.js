@@ -708,7 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (questionData.type === 'observations-group') {
         delete questionData.options;
-        delete questionData.question;
+        //delete questionData.question;
       }
 
       if (questionData.type === 'simple-question-group') {
@@ -725,7 +725,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fazer solicitação POST para o script PHP
 
 
-    /*
+    
     fetch('php/saveForm.php', {
       method: 'POST',
       headers: {
@@ -742,7 +742,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Erro ao salvar questionário:', error);
         // Lide com o erro de alguma forma apropriada para o seu aplicativo
       });
-      */
+      
   }
 
   // Adicione o evento de clique ao botão de salvar
